@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright MapStruct Authors.
+
+    Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.annotationhelper</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>annotationhelper-aggregator</artifactId>
+    <packaging>pom</packaging>
+    <name>Annotation Helper Aggregator</name>
+
+    <modules>
+        <module>api</module>
+        <module>processor</module>
+        <module>test</module>
+    </modules>
+
+    <!-- Required here as the maven-release-plugin will otherwise get the URL wrong -->
+    <scm>
+        <connection>scm:git:git://github.com/mapstruct/annotationhelper.git</connection>
+        <developerConnection>scm:git:git@github.com:mapstruct/annotationhelper.git</developerConnection>
+        <url>https://github.com/mapstruct/annotationhelper/</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <assertj.version>3.11.1</assertj.version>
+        <junit.version>5.5.2</junit.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.29</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
