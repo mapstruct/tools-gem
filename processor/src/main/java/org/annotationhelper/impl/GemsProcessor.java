@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
@@ -36,6 +38,7 @@ import org.annotationhelper.GemDefinitions;
  * @author sjaakd
  */
 @SupportedAnnotationTypes( "org.annotationhelper.GemDefinitions" )
+@SupportedSourceVersion( SourceVersion.RELEASE_8 )
 public class GemsProcessor extends AbstractProcessor {
 
     private Util util;

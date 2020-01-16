@@ -7,5 +7,5 @@ import org.annotationhelper.test.SomeAnnotations;
 @GemDefinition(value = SomeAnnotation.class)
 @GemDefinition(value = SomeAnnotations.class)
 @GemDefinition(value = SomeArrayAnnotation.class)
-public class GemGenerator {
+public class GemExampleGenerator {
 }

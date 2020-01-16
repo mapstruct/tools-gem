@@ -1,12 +1,9 @@
 
-package nl.bro.dao.common.processor;
-
-import static org.assertj.core.api.Assertions.assertThat;
+package org.annotationhelper.impl;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
-
 import javax.annotation.processing.Processor;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -17,10 +14,11 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
-import nl.bro.lib.genericdao.BroRoMetaModel;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProcessorTest {
 
@@ -31,9 +29,8 @@ public class ProcessorTest {
 
     @Test
     public void example() throws IOException, ClassNotFoundException {
-        StringJavaFileObject src = new StringJavaFileObject( "nl.bro.dao.common.processor.BoreholeResearchMapper", getSource() );
-        Thread.currentThread().getContextClassLoader().loadClass( BroRoMetaModel.class.getName() );
-        compile( new GenericMapperProcessor(), src );
+        StringJavaFileObject src = new StringJavaFileObject( "org.annotationhelper.test.gem.GemGenerator", getSource() );
+        compile( new GemsProcessor(), src );
     }
 
     private void compile(Processor processor, JavaFileObject... compilationUnits) throws IOException {
@@ -73,14 +70,16 @@ public class ProcessorTest {
     }
 
     private String getSource() {
-        return "package nl.bro.dao.common.processor;\n"
-            + "\n"
-            + "import nl.bro.dao.common.GenericMapper;\n"
-            + "import nl.bro.dao.common.GenericMapperMarker;\n"
-            + "import nl.bro.dao.common.impl.generic.testdto.BoreholeResearch;\n"
-            + "\n"
-            + "@GenericMapperMarker\n"
-            + "public interface BoreholeResearchMapper extends GenericMapper<BoreholeResearch> {\n"
-            + "}";
+        return "package org.annotationhelper.test.gem;\n" +
+            "\n" +
+            "import org.annotationhelper.GemDefinition;\n" +
+            "import org.annotationhelper.test.SomeAnnotation;\n" +
+            "import org.annotationhelper.test.SomeAnnotations;\n" +
+            "\n" +
+            "@GemDefinition(value = SomeAnnotation.class)\n" +
+            "@GemDefinition(value = SomeAnnotations.class)\n" +
+            "@GemDefinition(value = SomeArrayAnnotation.class)\n" +
+            "public class GemGenerator {\n" +
+            "}";
     }
 }

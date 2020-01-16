@@ -22,37 +22,25 @@
             <version>${project.parent.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version> <!-- or newer version -->
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>${project.parent.groupId}</groupId>
-                            <artifactId>annotationhelper-processor</artifactId>
-                            <version>${project.parent.version}</version>
-                        </path>
-                        <!-- other annotation processors -->
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>3.5.1</version> &lt;!&ndash; or newer version &ndash;&gt;-->
+<!--                <configuration>-->
+<!--                    <annotationProcessorPaths>-->
+<!--                        <path>-->
+<!--                            <groupId>${project.parent.groupId}</groupId>-->
+<!--                            <artifactId>annotationhelper-processor</artifactId>-->
+<!--                            <version>${project.parent.version}</version>-->
+<!--                        </path>-->
+<!--                        &lt;!&ndash; other annotation processors &ndash;&gt;-->
+<!--                    </annotationProcessorPaths>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 </project>
