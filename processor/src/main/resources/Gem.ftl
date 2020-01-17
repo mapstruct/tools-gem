@@ -122,10 +122,14 @@ public class ${gemInfo.gemName}  {
     <#list gemInfo.gemValueInfos as gemValueInfo>
         private final GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name};
     </#list>
+        private final boolean isValid;
 
         private ${gemInfo.annotationName}( BuilderImpl builder ) {
     <#list gemInfo.gemValueInfos as gemValueInfo>
             this.${gemValueInfo.name} = builder.${gemValueInfo.name};
+    </#list>
+     <#list gemInfo.gemValueInfos as gemValueInfo>
+            <#if gemValueInfo_index == 0>this.isValid = <#else>               && </#if>( this.${gemValueInfo.name} != null ? this.${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
     </#list>
         }
 
@@ -140,6 +144,9 @@ public class ${gemInfo.gemName}  {
         }
 
     </#list>
+        public boolean isValid( ) {
+            return isValid;
+        }
     }
 
     <#list gemInfo.usedGemValueTypes as valueType>
@@ -234,7 +241,6 @@ public class ${gemInfo.gemName}  {
     }
 
     </#list>
-
 <#if gemInfo.containingArrays>
     private static Stream<AnnotationMirror> toStream( List<?> annotationValues ) {
         return annotationValues.stream()
