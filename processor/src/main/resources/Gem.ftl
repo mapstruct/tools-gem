@@ -93,6 +93,15 @@ public class ${gemInfo.gemName}  {
 
     </#list>
         /**
+         * Sets the annotation mirror
+         *
+         * @parameter mirror the mirror which this gem represents
+         *
+         * @return the {@link ${gemInfo.builderName}} for this gem, representing {@link ${gemInfo.annotationName}}
+         */
+          ${gemInfo.builderName} setMirror( AnnotationMirror mirror );
+
+        /**
          * The build method can be overriden in a custom custom implementation, which allows
          * the user to define his own custom validation on the annotation.
          *
@@ -106,6 +115,7 @@ public class ${gemInfo.gemName}  {
     <#list gemInfo.gemValueInfos as gemValueInfo>
         private GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name};
     </#list>
+        private AnnotationMirror mirror;
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
         public ${gemInfo.builderName} set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name} ) {
@@ -114,6 +124,11 @@ public class ${gemInfo.gemName}  {
         }
 
     </#list>
+        public ${gemInfo.builderName}  setMirror( AnnotationMirror mirror ) {
+            this.mirror = mirror;
+            return this;
+        }
+
         public ${gemInfo.annotationName} build() {
             return new ${gemInfo.annotationName}( this );
         }
@@ -125,28 +140,34 @@ public class ${gemInfo.gemName}  {
         private final GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name};
     </#list>
         private final boolean isValid;
+        private final AnnotationMirror mirror;
 
         private ${gemInfo.annotationName}( ${gemInfo.builderImplName} builder ) {
     <#list gemInfo.gemValueInfos as gemValueInfo>
-            this.${gemValueInfo.name} = builder.${gemValueInfo.name};
+            ${gemValueInfo.name} = builder.${gemValueInfo.name};
     </#list>
      <#list gemInfo.gemValueInfos as gemValueInfo>
-            <#if gemValueInfo_index == 0>this.isValid = <#else>            && </#if>( this.${gemValueInfo.name} != null ? this.${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
+            <#if gemValueInfo_index == 0>isValid = <#else>       && </#if>( ${gemValueInfo.name} != null ? ${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
     </#list>
-            <#if gemInfo.gemValueInfos?size==0>this.isValid = true;</#if>
+            <#if gemInfo.gemValueInfos?size==0>isValid = true;</#if>
+            mirror = builder.mirror;
         }
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
        /**
-        * Getter
+        * accessor
         *
         * @return the {@link GemValue} for {@link ${gemInfo.annotationName}#${gemValueInfo.name}}
         */
-        public GemValue<${gemValueInfo.valueType.name}> get${gemValueInfo.name?capitalize}( ) {
-            return this.${gemValueInfo.name};
+        public GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name}( ) {
+            return ${gemValueInfo.name};
         }
 
     </#list>
+        public AnnotationMirror mirror( ) {
+            return mirror;
+        }
+
         public boolean isValid( ) {
             return isValid;
         }
