@@ -52,6 +52,7 @@ public class ${gemInfo.gemName}  {
         if ( mirror == null || builder == null ) {
             return null;
         }
+        <#if gemInfo.gemValueInfos?size != 0>
 
         // fetch defaults from all defined values in the annotation type
         List<ExecutableElement> enclosed = ElementFilter.methodsIn( mirror.getAnnotationType().asElement().getEnclosedElements() );
@@ -71,6 +72,7 @@ public class ${gemInfo.gemName}  {
             }
         </#list>
         }
+        </#if>
 
         return builder.build();
     }
@@ -129,8 +131,9 @@ public class ${gemInfo.gemName}  {
             this.${gemValueInfo.name} = builder.${gemValueInfo.name};
     </#list>
      <#list gemInfo.gemValueInfos as gemValueInfo>
-            <#if gemValueInfo_index == 0>this.isValid = <#else>               && </#if>( this.${gemValueInfo.name} != null ? this.${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
+            <#if gemValueInfo_index == 0>this.isValid = <#else>            && </#if>( this.${gemValueInfo.name} != null ? this.${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
     </#list>
+            <#if gemInfo.gemValueInfos?size==0>this.isValid = true;</#if>
         }
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
