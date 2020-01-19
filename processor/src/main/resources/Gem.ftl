@@ -239,6 +239,11 @@ public class ${gemInfo.gemName}  {
         }
 
         @Override
+        public ${valueType.name} get() {
+            return value != null ? value : defaultValue;
+        }
+
+        @Override
         public ${valueType.name} getValue() {
             return value;
         }

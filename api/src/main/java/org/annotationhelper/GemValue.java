@@ -11,12 +11,23 @@ import javax.tools.Diagnostic;
 public interface GemValue<T> {
 
     /**
+     * The implied valued, the value set by the user, default value when not defined
+     *
+     * @return the implied value
+     */
+    T get();
+
+    /**
+     * The value set by the user
+     *
      * @return the value, null when not set
      */
     T getValue();
 
     /**
-     * @return the default value for the annotation value
+     * The default value, as declared in the annotation
+     *
+     * @return the default value
      */
     T getDefaultValue();
 
@@ -28,12 +39,13 @@ public interface GemValue<T> {
     AnnotationValue getAnnotationValue();
 
     /**
-     * @return true a value is set
+     *
+     * @return true a value is set by user
      */
-    boolean hasValue();
+     boolean hasValue();
 
     /**
-     * An annotation is valid when set or when not set and default value is present.
+     * An annotation set to be valid when set by user or a default value is present.
      *
      * @return true when valid
      */
