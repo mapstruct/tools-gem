@@ -31,14 +31,14 @@ import ${importItem};
 public class ${gemInfo.gemName}  {
 
     public static ${gemInfo.annotationName}  instanceOn(Element element) {
-        return build( element, new BuilderImpl() );
+        return build( element, new ${gemInfo.builderImplName}() );
     }
 
     public static ${gemInfo.annotationName} instanceOn(AnnotationMirror mirror ) {
-        return build( mirror, new BuilderImpl() );
+        return build( mirror, new ${gemInfo.builderImplName}() );
     }
 
-    public static  <T> T  build(Element element, Builder<T> builder) {
+    public static  <T> T  build(Element element, ${gemInfo.builderName}<T> builder) {
         AnnotationMirror mirror = element.getAnnotationMirrors().stream()
             .filter( a ->  "${gemInfo.annotationFqn}".contentEquals( ( ( TypeElement )a.getAnnotationType().asElement() ).getQualifiedName() ) )
             .findAny()
@@ -46,7 +46,7 @@ public class ${gemInfo.gemName}  {
         return build( mirror, builder );
     }
 
-    public static <T> T build(AnnotationMirror mirror, Builder<T> builder ) {
+    public static <T> T build(AnnotationMirror mirror, ${gemInfo.builderName}<T> builder ) {
 
         // return fast
         if ( mirror == null || builder == null ) {
@@ -81,15 +81,15 @@ public class ${gemInfo.gemName}  {
      * A builder that can be implemented by the user to define custom logic e.g. in the
      * build method, prior to creating the annotation gem.
      */
-    public interface Builder<T> {
+    public interface ${gemInfo.builderName}<T> {
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
        /**
         * Sets the {@link GemValue} for {@link ${gemInfo.annotationName}#${gemValueInfo.name}}
         *
-        * @return the {@link Builder} for this gem, representing {@link ${gemInfo.annotationName}}
+        * @return the {@link ${gemInfo.builderName}} for this gem, representing {@link ${gemInfo.annotationName}}
         */
-        Builder set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> methodName );
+        ${gemInfo.builderName} set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> methodName );
 
     </#list>
         /**
@@ -101,14 +101,14 @@ public class ${gemInfo.gemName}  {
         T build();
     }
 
-    private static class BuilderImpl implements Builder<${gemInfo.annotationName}> {
+    private static class ${gemInfo.builderImplName} implements ${gemInfo.builderName}<${gemInfo.annotationName}> {
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
         private GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name};
     </#list>
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
-        public Builder set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name} ) {
+        public ${gemInfo.builderName} set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name} ) {
             this.${gemValueInfo.name} = ${gemValueInfo.name};
             return this;
         }
@@ -126,7 +126,7 @@ public class ${gemInfo.gemName}  {
     </#list>
         private final boolean isValid;
 
-        private ${gemInfo.annotationName}( BuilderImpl builder ) {
+        private ${gemInfo.annotationName}( ${gemInfo.builderImplName} builder ) {
     <#list gemInfo.gemValueInfos as gemValueInfo>
             this.${gemValueInfo.name} = builder.${gemValueInfo.name};
     </#list>

@@ -7,10 +7,15 @@ import java.util.stream.Collectors;
 
 public class GemInfo {
 
+    private final String BUILDER_NAME = "Builder";
+    private final String BUILDER_IMPL_NAME = "BuilderImpl";
+
     private final String gemPackageName;
     private final String annotationName;
     private final String annotationFqn;
     private final String gemName;
+    private final String builderName;
+    private final String builderImplName;
 
     private final List<GemValueInfo> gemValueInfos;
 
@@ -20,6 +25,8 @@ public class GemInfo {
         this.annotationName = annotationName;
         this.annotationFqn = annotationFqn;
         this.gemValueInfos = gemValueInfos;
+        this.builderName = BUILDER_NAME + ( BUILDER_NAME.equals( annotationName ) ? "_" : "" );
+        this.builderImplName = BUILDER_IMPL_NAME + ( BUILDER_IMPL_NAME.equals( annotationName ) ? "_" : "" );
     }
 
     public String getGemName() {
@@ -64,7 +71,15 @@ public class GemInfo {
         return gemValueInfos.stream().map( GemValueInfo::getValueType ).collect( Collectors.toSet() );
     }
 
-    private boolean isNotSamePackage( GemValueType valueType ) {
+    public String getBuilderName() {
+        return builderName;
+    }
+
+    public String getBuilderImplName() {
+        return builderImplName;
+    }
+
+    private boolean isNotSamePackage(GemValueType valueType ) {
         return !valueType.getPacakage().equals( gemPackageName );
     }
 

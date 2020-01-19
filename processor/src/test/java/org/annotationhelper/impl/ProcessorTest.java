@@ -75,10 +75,12 @@ public class ProcessorTest {
             "import org.annotationhelper.GemDefinition;\n" +
             "import org.annotationhelper.test.SomeAnnotation;\n" +
             "import org.annotationhelper.test.SomeAnnotations;\n" +
+            "import org.annotationhelper.test.Builder;\n" +
             "\n" +
             "@GemDefinition(value = SomeAnnotation.class)\n" +
             "@GemDefinition(value = SomeAnnotations.class)\n" +
             "@GemDefinition(value = SomeArrayAnnotation.class)\n" +
+            "@GemDefinition(value = Builder.class)\n" +
             "public class GemGenerator {\n" +
             "}";
     }
