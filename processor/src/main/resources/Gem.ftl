@@ -22,6 +22,7 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.AbstractAnnotationValueVisitor8;
 import javax.lang.model.util.ElementFilter;
+import org.annotationhelper.Gem;
 import org.annotationhelper.GemValue;
 
 <#list gemInfo.imports as importItem>
@@ -134,7 +135,7 @@ public class ${gemInfo.gemName}  {
         }
     }
 
-    public static class ${gemInfo.annotationName} {
+    public static class ${gemInfo.annotationName} implements Gem {
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
         private final GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name};
@@ -144,12 +145,14 @@ public class ${gemInfo.gemName}  {
 
         private ${gemInfo.annotationName}( ${gemInfo.builderImplName} builder ) {
     <#list gemInfo.gemValueInfos as gemValueInfo>
-            ${gemValueInfo.name} = builder.${gemValueInfo.name};
+            this.${gemValueInfo.name} = builder.${gemValueInfo.name};
     </#list>
      <#list gemInfo.gemValueInfos as gemValueInfo>
-            <#if gemValueInfo_index == 0>isValid = <#else>       && </#if>( ${gemValueInfo.name} != null ? ${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
+            <#if gemValueInfo_index == 0>isValid = <#else>       && </#if>( this.${gemValueInfo.name} != null ? this.${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
     </#list>
-            <#if gemInfo.gemValueInfos?size==0>isValid = true;</#if>
+    <#if gemInfo.gemValueInfos?size==0>
+            isValid = true;
+    </#if>
             mirror = builder.mirror;
         }
 
@@ -164,10 +167,12 @@ public class ${gemInfo.gemName}  {
         }
 
     </#list>
+        @Override
         public AnnotationMirror mirror( ) {
             return mirror;
         }
 
+        @Override
         public boolean isValid( ) {
             return isValid;
         }

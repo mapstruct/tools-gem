@@ -1,7 +1,6 @@
 package org.annotationhelper;
 
 import javax.lang.model.element.AnnotationValue;
-import javax.tools.Diagnostic;
 
 /**
  * Class representing a annotation value
