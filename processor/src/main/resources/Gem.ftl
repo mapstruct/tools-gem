@@ -188,40 +188,40 @@ public class ${gemInfo.gemName}  {
         public ${valueType.gemValueClass}(AnnotationValue annotationValue, AnnotationValue annotationDefaultValue ) {
         <#if valueType.array>
           <#if valueType.enum>
-            if ( annotationValue != null && annotationValue instanceof List ) {
-                value = toStream( (List) annotationValue ).map( VariableElement.class::cast ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
+            if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
+                value = toStream( (List) annotationValue.getValue() ).map( VariableElement.class::cast ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
             }
             else {
                 value = null;
             }
-            if ( annotationDefaultValue != null && annotationDefaultValue instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue ).map( VariableElement.class::cast ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
+            if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
+                defaultValue = toStream( (List) annotationDefaultValue.getValue() ).map( VariableElement.class::cast ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
             }
             else {
                 defaultValue = null;
             }
           <#elseif valueType.gem>
-            if ( annotationValue != null && annotationValue instanceof List ) {
-                value = toStream( (List) annotationValue ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
+            if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
+                value = toStream( (List) annotationValue.getValue() ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
             }
             else {
                 value = null;
             }
-            if ( annotationDefaultValue != null && annotationDefaultValue instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
+            if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
+                defaultValue = toStream( (List) annotationDefaultValue.getValue() ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
             }
             else {
                 defaultValue = null;
             }
           <#else>
-            if ( annotationValue != null && annotationValue instanceof List ) {
-                value = toStream( (List) annotationValue ).map( ${valueType.elementName}.class::cast ).collect( Collectors.toList() );
+            if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
+                value = toStream( (List) annotationValue.getValue() ).map( ${valueType.elementName}.class::cast ).collect( Collectors.toList() );
             }
             else {
                 value = null;
             }
-            if ( annotationDefaultValue != null && annotationDefaultValue instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue ).map( ${valueType.elementName}.class::cast ).collect( Collectors.toList() );
+            if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
+                defaultValue = toStream( (List) annotationDefaultValue.getValue() ).map( ${valueType.elementName}.class::cast ).collect( Collectors.toList() );
             }
             else {
                 defaultValue = null;
