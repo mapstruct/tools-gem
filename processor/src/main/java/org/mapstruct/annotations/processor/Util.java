@@ -1,4 +1,4 @@
-package org.annotationhelper.impl;
+package org.mapstruct.annotations.processor;
 
 import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;

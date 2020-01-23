@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
  */
-package org.annotationhelper.test;
+package org.mapstruct.annotations.test;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

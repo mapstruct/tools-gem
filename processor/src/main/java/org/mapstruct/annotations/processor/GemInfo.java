@@ -1,4 +1,4 @@
-package org.annotationhelper.impl;
+package org.mapstruct.annotations.processor;
 
 import java.util.List;
 import java.util.Objects;

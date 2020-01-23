@@ -1,4 +1,4 @@
-package org.annotationhelper;
+package org.mapstruct.annotations;
 
 import javax.lang.model.element.AnnotationValue;
 

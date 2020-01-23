@@ -1,4 +1,4 @@
-package org.annotationhelper.impl;
+package org.mapstruct.annotations.processor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,14 +32,14 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.Version;
-import org.annotationhelper.GemDefinitions;
+import org.mapstruct.annotations.GemDefinitions;
 
 /**
  * @author sjaakd
  */
-@SupportedAnnotationTypes( "org.annotationhelper.GemDefinitions" )
+@SupportedAnnotationTypes( "org.mapstruct.annotations.GemDefinitions" )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
-public class GemsProcessor extends AbstractProcessor {
+public class GemProcessor extends AbstractProcessor {
 
     private Util util;
     private List<GemInfo> gemInfos = new ArrayList<>( 10 );
@@ -182,7 +182,7 @@ public class GemsProcessor extends AbstractProcessor {
         for ( GemInfo gemInfo : gemInfos ) {
             try (Writer writer = processingEnv.getFiler().createSourceFile( gemInfo.getGemPackageName() + "." + gemInfo.getGemName(), gemElement ).openWriter()) {
                 Configuration cfg = new Configuration( new Version( "2.3.21" ) );
-                cfg.setClassForTemplateLoading( GemsProcessor.class, "/" );
+                cfg.setClassForTemplateLoading( GemProcessor.class, "/" );
                 cfg.setDefaultEncoding( "UTF-8" );
 
                 Map<String, Object> templateData = new HashMap<>();

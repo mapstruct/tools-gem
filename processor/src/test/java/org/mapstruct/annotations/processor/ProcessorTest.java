@@ -1,5 +1,5 @@
 
-package org.annotationhelper.impl;
+package org.mapstruct.annotations.processor;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,8 +29,8 @@ public class ProcessorTest {
 
     @Test
     public void example() throws IOException, ClassNotFoundException {
-        StringJavaFileObject src = new StringJavaFileObject( "org.annotationhelper.test.gem.GemGenerator", getSource() );
-        compile( new GemsProcessor(), src );
+        StringJavaFileObject src = new StringJavaFileObject( "org.mapstruct.annotations.processor.GemGenerator", getSource() );
+        compile( new GemProcessor(), src );
     }
 
     private void compile(Processor processor, JavaFileObject... compilationUnits) throws IOException {
@@ -70,12 +70,13 @@ public class ProcessorTest {
     }
 
     private String getSource() {
-        return "package org.annotationhelper.test.gem;\n" +
+        return "package org.mapstruct.annotations.processor;\n" +
             "\n" +
-            "import org.annotationhelper.GemDefinition;\n" +
-            "import org.annotationhelper.test.SomeAnnotation;\n" +
-            "import org.annotationhelper.test.SomeAnnotations;\n" +
-            "import org.annotationhelper.test.Builder;\n" +
+            "import org.mapstruct.annotations.GemDefinition;\n" +
+            "import org.mapstruct.annotations.test.Builder;\n" +
+            "import org.mapstruct.annotations.test.SomeAnnotation;\n" +
+            "import org.mapstruct.annotations.test.SomeAnnotations;\n" +
+            "import org.mapstruct.annotations.test.gem.SomeArrayAnnotation;\n" +
             "\n" +
             "@GemDefinition(value = SomeAnnotation.class)\n" +
             "@GemDefinition(value = SomeAnnotations.class)\n" +

@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
  */
-package org.annotationhelper;
+package org.mapstruct.annotations.test;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,11 +14,13 @@ import java.lang.annotation.Target;
  * @author Sjaak Derksen
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ ElementType.PACKAGE,ElementType.TYPE })
-public @interface GemDefinitions {
+@Target( ElementType.TYPE )
+public @interface SomeAnnotations {
 
     /**
-     * @return The gem definitions
+     * The configuration of the bean attributes.
+     *
+     * @return The configuration of the bean attributes.
      */
-    GemDefinition[] value();
+    SomeAnnotation[] value();
 }

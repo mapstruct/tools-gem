@@ -1,4 +1,4 @@
-package org.annotationhelper.impl;
+package org.mapstruct.annotations.processor;
 
 import javax.lang.model.type.TypeMirror;
 

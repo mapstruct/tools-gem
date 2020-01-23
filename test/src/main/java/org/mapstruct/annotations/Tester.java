@@ -1,6 +1,6 @@
-package org.annotationhelper;
+package org.mapstruct.annotations;
 
-import org.annotationhelper.test.SomeAnnotation;
+import org.mapstruct.annotations.test.SomeAnnotation;
 
 @SomeAnnotation(
     myClass = Object.class,
