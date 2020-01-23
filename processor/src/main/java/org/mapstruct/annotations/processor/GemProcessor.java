@@ -72,10 +72,8 @@ public class GemProcessor extends AbstractProcessor {
                     gemDefinitionMirrors.stream().forEach( m -> addGemInfo( m, definingElement ) );
                 }
             }
-            if ( roundEnv.processingOver() ) {
-                postProcessGemInfo();
-                write();
-            }
+            postProcessGemInfo();
+            write();
         }
         catch ( RuntimeException ex ) {
             StringWriter sw = new StringWriter();
@@ -195,5 +193,7 @@ public class GemProcessor extends AbstractProcessor {
                 throw new IllegalStateException( ex );
             }
         }
+        // handled all info, clear
+        gemInfos.clear();
     }
 }
