@@ -74,7 +74,7 @@ public class ${gemInfo.gemName}  {
         </#list>
         }
         </#if>
-
+        builder.setMirror( mirror );
         return builder.build();
     }
 
