@@ -189,39 +189,39 @@ public class ${gemInfo.gemName}  {
         <#if valueType.array>
           <#if valueType.enum>
             if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
-                value = toStream( (List) annotationValue.getValue() ).map( VariableElement.class::cast ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
+                value = toStream( (List) annotationValue.getValue(), VariableElement.class ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
             }
             else {
                 value = null;
             }
             if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue.getValue() ).map( VariableElement.class::cast ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
+                defaultValue = toStream( (List) annotationDefaultValue.getValue(), VariableElement.class ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
             }
             else {
                 defaultValue = null;
             }
           <#elseif valueType.gem>
             if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
-                value = toStream( (List) annotationValue.getValue() ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
+                value = toStream( (List) annotationValue.getValue(), AnnotationMirror.class ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
             }
             else {
                 value = null;
             }
             if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue.getValue() ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
+                defaultValue = toStream( (List) annotationDefaultValue.getValue(), AnnotationMirror.class ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
             }
             else {
                 defaultValue = null;
             }
           <#else>
             if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
-                value = toStream( (List) annotationValue.getValue() ).map( ${valueType.elementName}.class::cast ).collect( Collectors.toList() );
+                value = toStream( (List) annotationValue.getValue(), ${valueType.elementName}.class ).collect( Collectors.toList() );
             }
             else {
                 value = null;
             }
             if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue.getValue() ).map( ${valueType.elementName}.class::cast ).collect( Collectors.toList() );
+                defaultValue = toStream( (List) annotationDefaultValue.getValue(), ${valueType.elementName}.class ).collect( Collectors.toList() );
             }
             else {
                 defaultValue = null;
@@ -276,13 +276,13 @@ public class ${gemInfo.gemName}  {
 
     </#list>
 <#if gemInfo.containingArrays>
-    private static Stream<AnnotationMirror> toStream( List<?> annotationValues ) {
+    private static <T> Stream<T> toStream( List<?> annotationValues, Class<T> clz ) {
         return annotationValues.stream()
         .filter( AnnotationValue.class::isInstance )
         .map( AnnotationValue.class::cast )
         .map( AnnotationValue::getValue )
-        .filter( AnnotationMirror.class::isInstance )
-        .map( AnnotationMirror.class::cast );
+        .filter( clz::isInstance )
+        .map( clz::cast );
     }
 </#if>
 }
