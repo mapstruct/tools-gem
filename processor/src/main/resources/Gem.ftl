@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="gemInfo" type="org.mapstruct.annotations.processor.GemInfo" -->
 /*
  *
  */
@@ -7,10 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-<#if gemInfo.containingArrays>
-import java.util.stream.Stream;
-import java.util.stream.Collectors;
-</#if>
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -69,7 +66,27 @@ public class ${gemInfo.gemName}  {
 
         <#list gemInfo.gemValueInfos as gemValueInfo>
             <#if gemValueInfo_index != 0>else </#if>if ( "${gemValueInfo.name}".equals( methodName ) ) {
-                builder.set${gemValueInfo.name?capitalize}( new ${gemValueInfo.valueType.gemValueClass}( values.get( methodName ), defaultValues.get( methodName ) ) );
+                <@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
+                        <#if gemValueInfo.valueType.gem>
+                            <#if gemValueInfo.valueType.array>
+                                GemValueImpl.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                            <#else>
+                                GemValueImpl.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                            </#if>
+                        <#elseif gemValueInfo.valueType.enum>
+                            <#if gemValueInfo.valueType.array>
+                                GemValueImpl.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) )
+                            <#else>
+                                GemValueImpl.createEnum( values.get( methodName ), defaultValues.get( methodName ) )
+                            </#if>
+                        <#else>
+                            <#if gemValueInfo.valueType.array>
+                                GemValueImpl.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                            <#else>
+                                GemValueImpl.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                            </#if>
+                        </#if>
+                    );</@compress>
             }
         </#list>
         }
@@ -178,111 +195,4 @@ public class ${gemInfo.gemName}  {
         }
     }
 
-    <#list gemInfo.usedGemValueTypes as valueType>
-    private static class ${valueType.gemValueClass} implements GemValue<${valueType.name}> {
-
-        private final ${valueType.name} value;
-        private final ${valueType.name} defaultValue;
-        private final AnnotationValue annotationValue;
-
-        public ${valueType.gemValueClass}(AnnotationValue annotationValue, AnnotationValue annotationDefaultValue ) {
-        <#if valueType.array>
-          <#if valueType.enum>
-            if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
-                value = toStream( (List) annotationValue.getValue(), VariableElement.class ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
-            }
-            else {
-                value = null;
-            }
-            if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue.getValue(), VariableElement.class ).map( v -> v.getSimpleName().toString() ).collect( Collectors.toList() );
-            }
-            else {
-                defaultValue = null;
-            }
-          <#elseif valueType.gem>
-            if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
-                value = toStream( (List) annotationValue.getValue(), AnnotationMirror.class ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
-            }
-            else {
-                value = null;
-            }
-            if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue.getValue(), AnnotationMirror.class ).map( ${valueType.gemName}::instanceOn ).collect( Collectors.toList() );
-            }
-            else {
-                defaultValue = null;
-            }
-          <#else>
-            if ( annotationValue != null && annotationValue.getValue() != null && annotationValue.getValue() instanceof List ) {
-                value = toStream( (List) annotationValue.getValue(), ${valueType.elementName}.class ).collect( Collectors.toList() );
-            }
-            else {
-                value = null;
-            }
-            if ( annotationDefaultValue != null && annotationDefaultValue.getValue() != null && annotationDefaultValue.getValue() instanceof List ) {
-                defaultValue = toStream( (List) annotationDefaultValue.getValue(), ${valueType.elementName}.class ).collect( Collectors.toList() );
-            }
-            else {
-                defaultValue = null;
-            }
-          </#if>
-            this.annotationValue = annotationValue;
-        <#else>
-          <#if valueType.enum>
-            this.value = annotationValue == null ? null : ( (VariableElement) annotationValue.getValue() ).getSimpleName().toString();
-            this.defaultValue = annotationDefaultValue == null ? null : ( (VariableElement) annotationDefaultValue.getValue() ).getSimpleName().toString();
-          <#elseif valueType.gem>
-            this.value = annotationValue == null ? null : ${valueType.gemName}.instanceOn( (AnnotationMirror) annotationValue.getValue() );
-            this.defaultValue = annotationDefaultValue == null ? null : ${valueType.gemName}.instanceOn( (AnnotationMirror) annotationDefaultValue.getValue() );
-          <#else>
-            this.value = annotationValue == null ? null : (${valueType.name}) annotationValue.getValue();
-            this.defaultValue = annotationDefaultValue == null ? null : (${valueType.name}) annotationDefaultValue.getValue();
-          </#if>
-            this.annotationValue = annotationValue;
-        </#if>
-        }
-
-        @Override
-        public ${valueType.name} get() {
-            return value != null ? value : defaultValue;
-        }
-
-        @Override
-        public ${valueType.name} getValue() {
-            return value;
-        }
-
-        @Override
-        public ${valueType.name} getDefaultValue() {
-            return defaultValue;
-        }
-
-        @Override
-        public AnnotationValue getAnnotationValue() {
-            return annotationValue;
-        }
-
-        @Override
-        public boolean hasValue() {
-            return value != null;
-        }
-
-        @Override
-        public boolean isValid() {
-            return value != null || defaultValue != null;
-        }
-    }
-
-    </#list>
-<#if gemInfo.containingArrays>
-    private static <T> Stream<T> toStream( List<?> annotationValues, Class<T> clz ) {
-        return annotationValues.stream()
-        .filter( AnnotationValue.class::isInstance )
-        .map( AnnotationValue.class::cast )
-        .map( AnnotationValue::getValue )
-        .filter( clz::isInstance )
-        .map( clz::cast );
-    }
-</#if>
 }

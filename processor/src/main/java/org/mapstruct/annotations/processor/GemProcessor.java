@@ -177,6 +177,23 @@ public class GemProcessor extends AbstractProcessor {
 
     private void write( ) {
         TypeElement gemElement = processingEnv.getElementUtils().getTypeElement( "org.annotationhelper.GemDefinitions" );
+        if ( !gemInfos.isEmpty() ) {
+            GemInfo gemInfo = gemInfos.get( 0 );
+            try (Writer writer = processingEnv.getFiler().createSourceFile( gemInfo.getGemPackageName() + ".GemValueImpl", gemElement ).openWriter()) {
+                Configuration cfg = new Configuration( new Version( "2.3.21" ) );
+                cfg.setClassForTemplateLoading( GemProcessor.class, "/" );
+                cfg.setDefaultEncoding( "UTF-8" );
+
+                Map<String, Object> templateData = new HashMap<>();
+
+                templateData.put( "gemInfo", gemInfo );
+                Template template = cfg.getTemplate( "GemValueImpl.ftl" );
+                template.process( templateData, writer );
+            }
+            catch ( TemplateException | IOException ex ) {
+                throw new IllegalStateException( ex );
+            }
+        }
         for ( GemInfo gemInfo : gemInfos ) {
             try (Writer writer = processingEnv.getFiler().createSourceFile( gemInfo.getGemPackageName() + "." + gemInfo.getGemName(), gemElement ).openWriter()) {
                 Configuration cfg = new Configuration( new Version( "2.3.21" ) );

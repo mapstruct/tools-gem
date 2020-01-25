@@ -58,19 +58,6 @@ public class GemInfo {
             .collect( Collectors.toSet() );
     }
 
-    public boolean isContainingArrays() {
-        return gemValueInfos.stream()
-            .map( GemValueInfo::getValueType )
-            .filter( GemValueType::isArray )
-            .findAny()
-            .map( Objects::nonNull )
-            .orElse( false );
-    }
-
-    public Set<GemValueType> getUsedGemValueTypes() {
-        return gemValueInfos.stream().map( GemValueInfo::getValueType ).collect( Collectors.toSet() );
-    }
-
     public String getBuilderName() {
         return builderName;
     }

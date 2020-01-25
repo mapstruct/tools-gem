@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class GemValueType {
 
-    private final String gemValueClass;
     private final String name;
     private final String fqn;
     private final String pacakage;
@@ -24,7 +23,6 @@ public class GemValueType {
         this.isEnum = false;
         this.isArray = isArray;
         this.isGem = true;
-        this.gemValueClass = "Gem"+ gemInfo.getAnnotationName() + ( isArray ? "Array" : "" ) + "Value" ;
     }
 
     public GemValueType(Class clazz, boolean isEnum, boolean isArray) {
@@ -35,7 +33,6 @@ public class GemValueType {
         this.isEnum = isEnum;
         this.isArray = isArray;
         this.isGem = false;
-        this.gemValueClass = isEnum? "GemEnumValue" : "Gem"+ clazz.getSimpleName() + ( isArray ? "Array" : "" ) + "Value" ;
     }
 
     public String getFqn() {
@@ -66,28 +63,8 @@ public class GemValueType {
         return isGem;
     }
 
-    public String getGemValueClass() {
-        return gemValueClass;
-    }
-
     public String getGemName() {
         return gemName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if ( this == o ) {
-            return true;
-        }
-        if ( o == null || getClass() != o.getClass() ) {
-            return false;
-        }
-        GemValueType that = (GemValueType) o;
-        return Objects.equals( gemValueClass, that.gemValueClass );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash( gemValueClass );
-    }
 }
