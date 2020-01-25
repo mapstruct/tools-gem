@@ -36,7 +36,7 @@ import org.mapstruct.tools.gem.GemDefinitions;
 /**
  * @author sjaakd
  */
-@SupportedAnnotationTypes( "org.mapstruct.annotations.GemDefinitions" )
+@SupportedAnnotationTypes( "org.mapstruct.tools.gem.GemDefinitions" )
 public class GemProcessor extends AbstractProcessor {
 
     private Util util;

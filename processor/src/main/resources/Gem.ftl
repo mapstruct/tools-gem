@@ -19,8 +19,8 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.AbstractAnnotationValueVisitor8;
 import javax.lang.model.util.ElementFilter;
-import Gem;
-import GemValue;
+import org.mapstruct.tools.gem.Gem;
+import org.mapstruct.tools.gem.GemValue;
 
 <#list gemInfo.imports as importItem>
 import ${importItem};

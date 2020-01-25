@@ -9,7 +9,7 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.VariableElement;
 
-import GemValue;
+import org.mapstruct.tools.gem.GemValue;
 
 public class GemValueImpl<T> implements GemValue<T> {
 
