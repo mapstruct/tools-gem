@@ -1,6 +1,6 @@
-package org.mapstruct.annotations;
+package org.mapstruct.tools.gem;
 
-import org.mapstruct.annotations.test.SomeAnnotation;
+import org.mapstruct.tools.gem.test.SomeAnnotation;
 
 @SomeAnnotation(
     myClass = Object.class,

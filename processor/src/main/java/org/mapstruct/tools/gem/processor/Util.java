@@ -1,4 +1,4 @@
-package org.mapstruct.annotations.processor;
+package org.mapstruct.tools.gem.processor;
 
 import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;

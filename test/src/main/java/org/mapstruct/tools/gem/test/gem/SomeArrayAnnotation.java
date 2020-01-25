@@ -3,14 +3,14 @@
  *
  * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
  */
-package org.mapstruct.annotations.test.gem;
+package org.mapstruct.tools.gem.test.gem;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.mapstruct.annotations.test.SomeAnnotation;
+import org.mapstruct.tools.gem.test.SomeAnnotation;
 
 /**
  * @author Sjaak Derksen

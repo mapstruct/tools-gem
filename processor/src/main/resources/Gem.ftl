@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="gemInfo" type="org.mapstruct.annotations.processor.GemInfo" -->
+<#-- @ftlvariable name="gemInfo" type="org.mapstruct.tools.gem.processor.GemInfo" -->
 /*
  *
  */
@@ -19,8 +19,8 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.AbstractAnnotationValueVisitor8;
 import javax.lang.model.util.ElementFilter;
-import org.mapstruct.annotations.Gem;
-import org.mapstruct.annotations.GemValue;
+import Gem;
+import GemValue;
 
 <#list gemInfo.imports as importItem>
 import ${importItem};

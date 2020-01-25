@@ -1,4 +1,4 @@
-package org.mapstruct.annotations.processor;
+package org.mapstruct.tools.gem.processor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -32,7 +31,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.Version;
-import org.mapstruct.annotations.GemDefinitions;
+import org.mapstruct.tools.gem.GemDefinitions;
 
 /**
  * @author sjaakd

@@ -1,1 +1,1 @@
-org.mapstruct.annotations.processor.GemProcessor
+org.mapstruct.tools.gem.processor.GemProcessor

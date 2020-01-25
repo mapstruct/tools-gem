@@ -1,7 +1,6 @@
-package org.mapstruct.annotations.processor;
+package org.mapstruct.tools.gem.processor;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 

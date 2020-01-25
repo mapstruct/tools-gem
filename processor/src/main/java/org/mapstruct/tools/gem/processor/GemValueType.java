@@ -1,6 +1,4 @@
-package org.mapstruct.annotations.processor;
-
-import java.util.Objects;
+package org.mapstruct.tools.gem.processor;
 
 public class GemValueType {
 

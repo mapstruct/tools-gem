@@ -1,5 +1,5 @@
 
-package org.mapstruct.annotations.processor;
+package org.mapstruct.tools.gem.processor;
 
 import java.io.IOException;
 import java.net.URI;
@@ -70,13 +70,13 @@ public class ProcessorTest {
     }
 
     private String getSource() {
-        return "package org.mapstruct.annotations.processor;\n" +
+        return "package org.mapstruct.tools.gem.processor;\n" +
             "\n" +
-            "import org.mapstruct.annotations.GemDefinition;\n" +
-            "import org.mapstruct.annotations.test.Builder;\n" +
-            "import org.mapstruct.annotations.test.SomeAnnotation;\n" +
-            "import org.mapstruct.annotations.test.SomeAnnotations;\n" +
-            "import org.mapstruct.annotations.test.gem.SomeArrayAnnotation;\n" +
+            "import org.mapstruct.tools.gem.GemDefinition;\n" +
+            "import org.mapstruct.tools.gem.test.Builder;\n" +
+            "import org.mapstruct.tools.gem.test.SomeAnnotation;\n" +
+            "import org.mapstruct.tools.gem.test.SomeAnnotations;\n" +
+            "import org.mapstruct.tools.gem.test.gem.SomeArrayAnnotation;\n" +
             "\n" +
             "@GemDefinition(value = SomeAnnotation.class)\n" +
             "@GemDefinition(value = SomeAnnotations.class)\n" +

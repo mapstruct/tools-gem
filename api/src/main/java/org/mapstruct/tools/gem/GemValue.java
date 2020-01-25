@@ -1,4 +1,4 @@
-package org.mapstruct.annotations;
+package org.mapstruct.tools.gem;
 
 import javax.lang.model.element.AnnotationValue;
 

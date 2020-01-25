@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="gemInfo" type="org.mapstruct.annotations.processor.GemInfo" -->
+<#-- @ftlvariable name="gemInfo" type="org.mapstruct.tools.gem.processor.GemInfo" -->
 package ${gemInfo.gemPackageName};
 
 import java.util.List;
@@ -9,7 +9,7 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.VariableElement;
 
-import org.mapstruct.annotations.GemValue;
+import GemValue;
 
 public class GemValueImpl<T> implements GemValue<T> {
 
