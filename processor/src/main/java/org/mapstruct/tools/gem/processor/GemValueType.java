@@ -13,7 +13,7 @@ public class GemValueType {
     private String elementName;
 
     public GemValueType(GemInfo gemInfo, boolean isArray) {
-        this.elementName = gemInfo.getGemName() + "." + gemInfo.getAnnotationName();
+        this.elementName = gemInfo.getGemName();
         this.name = isArray? "List<" + elementName + ">" : elementName;
         this.fqn = gemInfo.getGemPackageName() + "." + gemInfo.getGemName();
         this.gemName = gemInfo.getGemName();
