@@ -38,11 +38,15 @@ import org.mapstruct.annotations.GemDefinitions;
  * @author sjaakd
  */
 @SupportedAnnotationTypes( "org.mapstruct.annotations.GemDefinitions" )
-@SupportedSourceVersion( SourceVersion.RELEASE_8 )
 public class GemProcessor extends AbstractProcessor {
 
     private Util util;
     private List<GemInfo> gemInfos = new ArrayList<>( 10 );
+
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotationTypes, RoundEnvironment roundEnv) {
