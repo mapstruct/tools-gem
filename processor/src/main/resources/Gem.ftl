@@ -153,7 +153,7 @@ public class ${gemInfo.gemName} implements Gem {
         /**
          * Sets the annotation mirror
          *
-         * @parameter mirror the mirror which this gem represents
+         * @param mirror the mirror which this gem represents
          *
          * @return the {@link ${gemInfo.builderName}} for this gem, representing {@link ${gemInfo.gemName}}
          */
