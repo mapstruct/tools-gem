@@ -87,12 +87,12 @@
         <dependencies>
 
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>gem-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>gem-processor</artifactId>
                 <version>${project.version}</version>
             </dependency>
