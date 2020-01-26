@@ -197,7 +197,7 @@ public class GemProcessor extends AbstractProcessor {
                 Map<String, Object> templateData = new HashMap<>();
 
                 templateData.put( "gemInfo", gemInfo );
-                Template template = cfg.getTemplate( "Gem.ftl" );
+                Template template = cfg.getTemplate( "org/mapstruct/tools/gem/processor/Gem.ftl" );
                 template.process( templateData, writer );
             }
             catch ( TemplateException | IOException ex ) {
