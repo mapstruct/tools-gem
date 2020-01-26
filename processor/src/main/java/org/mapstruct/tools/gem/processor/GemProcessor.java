@@ -36,7 +36,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.Version;
-import org.mapstruct.tools.gem.GemDefinitions;
 
 /**
  * @author sjaakd
@@ -67,7 +66,7 @@ public class GemProcessor extends AbstractProcessor {
                     AnnotationMirror gemDefinitionsMirror = definingElement
                         .getAnnotationMirrors()
                         .stream()
-                        .filter( t -> util.isSame( t.getAnnotationType(), GemDefinitions.class ) )
+                        .filter( t -> util.isSame( t.getAnnotationType(), "org.mapstruct.tools.gem.GemDefinitions" ) )
                         .findFirst()
                         .orElseThrow( IllegalStateException::new );
 

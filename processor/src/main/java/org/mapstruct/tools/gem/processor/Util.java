@@ -61,8 +61,8 @@ public class Util {
         return false;
     }
 
-    boolean isSame(TypeMirror type, Class<?> clazz) {
-        TypeElement typeOfClazzElement = elements.getTypeElement( clazz.getName() );
+    boolean isSame(TypeMirror type, String className) {
+        TypeElement typeOfClazzElement = elements.getTypeElement( className );
         if ( type.getKind() == TypeKind.DECLARED ) {
             DeclaredType declaredType = (DeclaredType) type;
             if ( declaredType.getTypeArguments().size() != typeOfClazzElement.getTypeParameters().size() ) {
