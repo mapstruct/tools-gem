@@ -109,21 +109,21 @@ public class ${gemInfo.gemName} implements Gem {
                 <@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
                         <#if gemValueInfo.valueType.gem>
                             <#if gemValueInfo.valueType.array>
-                                GemValueImpl.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                                GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
                             <#else>
-                                GemValueImpl.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                                GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
                             </#if>
                         <#elseif gemValueInfo.valueType.enum>
                             <#if gemValueInfo.valueType.array>
-                                GemValueImpl.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) )
+                                GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) )
                             <#else>
-                                GemValueImpl.createEnum( values.get( methodName ), defaultValues.get( methodName ) )
+                                GemValue.createEnum( values.get( methodName ), defaultValues.get( methodName ) )
                             </#if>
                         <#else>
                             <#if gemValueInfo.valueType.array>
-                                GemValueImpl.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                                GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
                             <#else>
-                                GemValueImpl.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                                GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
                             </#if>
                         </#if>
                     );</@compress>
