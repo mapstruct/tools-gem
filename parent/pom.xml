@@ -40,6 +40,19 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <id>filiphr</id>
+            <name>Filip Hrisafov</name>
+            <email>filip@mapstruct.org</email>
+        </developer>
+        <developer>
+            <id>sjaakd</id>
+            <name>Sjaak Derksen</name>
+            <email>sjaak@mapstruct.org</email>
+        </developer>
+    </developers>
+
     <scm>
         <connection>scm:git:git://github.com/mapstruct/tools-gem.git</connection>
         <developerConnection>scm:git:git@github.com:mapstruct/tools-gem.git</developerConnection>
