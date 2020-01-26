@@ -30,7 +30,6 @@
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>gem-api</artifactId>
-            <version>${project.parent.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -136,6 +135,23 @@
                                     <shadedPattern>org.mapstruct.tools.gem.processor.shaded.freemarker</shadedPattern>
                                 </relocation>
                             </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- Tidy up all POMs before they are published -->
+                        <id>flatten</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
                         </configuration>
                     </execution>
                 </executions>
