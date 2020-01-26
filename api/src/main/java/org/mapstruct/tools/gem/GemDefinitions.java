@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @author Sjaak Derksen
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ ElementType.PACKAGE,ElementType.TYPE })
+@Target({ ElementType.PACKAGE, ElementType.TYPE })
 public @interface GemDefinitions {
 
     /**

@@ -1,3 +1,8 @@
+/*
+ * Copyright MapStruct Authors.
+ *
+ * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ */
 package org.mapstruct.tools.gem.processor;
 
 import java.io.IOException;
@@ -90,7 +95,7 @@ public class GemProcessor extends AbstractProcessor {
     private void addGemInfo(AnnotationMirror gemDefinitionMirror, Element definingElement) {
 
         // create gem info
-        DeclaredType gemDeclaredType = util.getAnnotationValue( gemDefinitionMirror,"value", DeclaredType.class );
+        DeclaredType gemDeclaredType = util.getAnnotationValue( gemDefinitionMirror, "value", DeclaredType.class );
         PackageElement pkg = processingEnv.getElementUtils().getPackageOf( definingElement );
         String gemName = util.getSimpleName( gemDeclaredType );
         String gemFqn = util.getFullyQualifiedName( gemDeclaredType );
@@ -137,7 +142,7 @@ public class GemProcessor extends AbstractProcessor {
                 }
                 else {
                     GemInfo usedGem = gemInfos.stream()
-                        .filter( g ->fqn.equals( g.getAnnotationFqn() ) )
+                        .filter( g -> fqn.equals( g.getAnnotationFqn() ) )
                         .findFirst()
                         .orElse( null );
                     if ( usedGem != null ) {
@@ -179,9 +184,12 @@ public class GemProcessor extends AbstractProcessor {
     }
 
     private void write( ) {
-        TypeElement gemElement = processingEnv.getElementUtils().getTypeElement( "org.annotationhelper.GemDefinitions" );
+        TypeElement gemElement = processingEnv.getElementUtils()
+            .getTypeElement( "org.annotationhelper.GemDefinitions" );
         for ( GemInfo gemInfo : gemInfos ) {
-            try (Writer writer = processingEnv.getFiler().createSourceFile( gemInfo.getGemPackageName() + "." + gemInfo.getGemName(), gemElement ).openWriter()) {
+            try (Writer writer = processingEnv.getFiler()
+                .createSourceFile( gemInfo.getGemPackageName() + "." + gemInfo.getGemName(), gemElement )
+                .openWriter()) {
                 Configuration cfg = new Configuration( new Version( "2.3.21" ) );
                 cfg.setClassForTemplateLoading( GemProcessor.class, "/" );
                 cfg.setDefaultEncoding( "UTF-8" );

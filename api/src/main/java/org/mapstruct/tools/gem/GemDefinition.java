@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
  */
 @Repeatable(GemDefinitions.class)
 @Retention(RetentionPolicy.SOURCE)
-@Target({ ElementType.PACKAGE,ElementType.TYPE })
+@Target({ ElementType.PACKAGE, ElementType.TYPE })
 public @interface GemDefinition {
 
     /**

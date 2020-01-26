@@ -1,4 +1,8 @@
-
+/*
+ * Copyright MapStruct Authors.
+ *
+ * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ */
 package org.mapstruct.tools.gem.processor;
 
 import java.io.IOException;
@@ -29,7 +33,10 @@ public class ProcessorTest {
 
     @Test
     public void example() throws IOException, ClassNotFoundException {
-        StringJavaFileObject src = new StringJavaFileObject( "org.mapstruct.annotations.processor.GemGenerator", getSource() );
+        StringJavaFileObject src = new StringJavaFileObject(
+            "org.mapstruct.annotations.processor.GemGenerator",
+            getSource()
+        );
         compile( new GemProcessor(), src );
     }
 
@@ -40,7 +47,14 @@ public class ProcessorTest {
         StandardJavaFileManager fileManager = compiler.getStandardFileManager( diagnostics, null, null );
         fileManager.setLocation( StandardLocation.CLASS_OUTPUT, Arrays.asList( tempDir.getRoot() ) );
 
-        JavaCompiler.CompilationTask task = compiler.getTask( null, fileManager, diagnostics, null, null, Arrays.asList( compilationUnits ) );
+        JavaCompiler.CompilationTask task = compiler.getTask(
+            null,
+            fileManager,
+            diagnostics,
+            null,
+            null,
+            Arrays.asList( compilationUnits )
+        );
 
         task.setProcessors( Arrays.asList(
             processor
@@ -56,10 +70,11 @@ public class ProcessorTest {
     private static class StringJavaFileObject extends SimpleJavaFileObject {
         private final String code;
 
-        public StringJavaFileObject(String name, String code) {
+        StringJavaFileObject(String name, String code) {
             super(
                 URI.create( "string:///" + name.replace( '.', '/' ) + Kind.SOURCE.extension ),
-                Kind.SOURCE );
+                Kind.SOURCE
+            );
             this.code = code;
         }
 

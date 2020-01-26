@@ -1,3 +1,8 @@
+/*
+ * Copyright MapStruct Authors.
+ *
+ * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ */
 package org.mapstruct.tools.gem.processor;
 
 public class GemValueType {
@@ -14,7 +19,7 @@ public class GemValueType {
 
     public GemValueType(GemInfo gemInfo, boolean isArray) {
         this.elementName = gemInfo.getGemName();
-        this.name = isArray? "List<" + elementName + ">" : elementName;
+        this.name = isArray ? "List<" + elementName + ">" : elementName;
         this.fqn = gemInfo.getGemPackageName() + "." + gemInfo.getGemName();
         this.gemName = gemInfo.getGemName();
         this.pacakage = gemInfo.getGemPackageName();
@@ -25,7 +30,7 @@ public class GemValueType {
 
     public GemValueType(Class clazz, boolean isEnum, boolean isArray) {
         this.elementName = clazz.getSimpleName();
-        this.name = isArray? "List<" + clazz.getSimpleName() + ">" : clazz.getSimpleName();
+        this.name = isArray ? "List<" + clazz.getSimpleName() + ">" : clazz.getSimpleName();
         this.fqn = clazz.getName();
         this.pacakage = clazz.getPackage().getName();
         this.isEnum = isEnum;

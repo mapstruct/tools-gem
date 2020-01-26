@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE )
 public @interface SomeAnnotation {
 
-    public enum TEST { A, B };
+    enum TEST { A, B };
 
     Class<?> myClassWithDefault() default SomeAnnotation.class;
 

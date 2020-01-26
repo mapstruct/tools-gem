@@ -1,3 +1,8 @@
+/*
+ * Copyright MapStruct Authors.
+ *
+ * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ */
 package org.mapstruct.tools.gem.processor;
 
 import java.util.List;
@@ -6,8 +11,8 @@ import java.util.stream.Collectors;
 
 public class GemInfo {
 
-    private final String BUILDER_NAME = "Builder";
-    private final String BUILDER_IMPL_NAME = "BuilderImpl";
+    private static final String BUILDER_NAME = "Builder";
+    private static final String BUILDER_IMPL_NAME = "BuilderImpl";
 
     private final String gemPackageName;
     private final String annotationName;
@@ -18,7 +23,8 @@ public class GemInfo {
 
     private final List<GemValueInfo> gemValueInfos;
 
-    public GemInfo(String gemPackageName, String annotationName, String annotationFqn, List<GemValueInfo> gemValueInfos ) {
+    public GemInfo(String gemPackageName, String annotationName, String annotationFqn,
+        List<GemValueInfo> gemValueInfos) {
         this.gemPackageName = gemPackageName;
         this.gemName = annotationName + "Gem";
         this.annotationName = annotationName;

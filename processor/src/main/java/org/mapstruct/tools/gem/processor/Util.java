@@ -1,13 +1,16 @@
+/*
+ * Copyright MapStruct Authors.
+ *
+ * Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ */
 package org.mapstruct.tools.gem.processor;
 
-import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -24,12 +27,12 @@ public class Util {
         this.elements = elements;
     }
 
-    <T> T getAnnotationValue(AnnotationMirror mirror, String methodName, Class<T> clazz ) {
+    <T> T getAnnotationValue(AnnotationMirror mirror, String methodName, Class<T> clazz) {
         AnnotationValue annotationValue = getAnnotationValue( mirror, methodName );
         return annotationValue == null ? null : clazz.cast( annotationValue.getValue() );
     }
 
-    AnnotationValue getAnnotationValue(AnnotationMirror mirror, String methodName  ) {
+    AnnotationValue getAnnotationValue(AnnotationMirror mirror, String methodName) {
         ExecutableElement method = mirror.getAnnotationType()
             .asElement()
             .getEnclosedElements()
@@ -42,17 +45,17 @@ public class Util {
         return mirror.getElementValues().get( method );
     }
 
-    private boolean isMethodWithName(Element e, String methodName ) {
-        return ElementKind.METHOD == e.getKind() && methodName.equals(e.getSimpleName().toString() );
+    private boolean isMethodWithName(Element e, String methodName) {
+        return ElementKind.METHOD == e.getKind() && methodName.equals( e.getSimpleName().toString() );
     }
 
     String getFullyQualifiedName(DeclaredType type) {
         return ( (TypeElement) type.asElement() ).getQualifiedName().toString();
     }
 
-    boolean isEnumeration( TypeMirror type ) {
-        if (TypeKind.DECLARED == type.getKind() ) {
-            DeclaredType declaredType = ( DeclaredType ) type;
+    boolean isEnumeration(TypeMirror type) {
+        if ( TypeKind.DECLARED == type.getKind() ) {
+            DeclaredType declaredType = (DeclaredType) type;
             return ElementKind.ENUM == declaredType.asElement().getKind();
         }
         return false;

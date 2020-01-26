@@ -19,7 +19,7 @@ import org.mapstruct.tools.gem.test.SomeAnnotation;
 @Target(ElementType.TYPE )
 public @interface SomeArrayAnnotation {
 
-    public enum TEST2 { A, B };
+    enum TEST2 { A, B };
 
     Class<?>[] myClassWithDefault() default {};
 
