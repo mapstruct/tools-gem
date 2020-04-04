@@ -26,3 +26,4 @@ test-output
 
 dependency-reduced-pom.xml
 .flattened-pom.xml
+checkstyle.cache
