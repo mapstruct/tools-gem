@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,8 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
 
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -80,7 +83,8 @@ public class GemProcessor extends AbstractProcessor {
                 }
             }
             postProcessGemInfo();
-            write();
+            writeWithJavaPoet();
+//            write();
         }
         catch ( RuntimeException ex ) {
             StringWriter sw = new StringWriter();
@@ -105,7 +109,13 @@ public class GemProcessor extends AbstractProcessor {
         List<GemValueInfo> gemValueInfos = methods.stream()
             .map( e -> new GemValueInfo( e.getSimpleName().toString(), e.getReturnType() ) )
             .collect( Collectors.toList() );
-        GemInfo gemInfo = new GemInfo( gemPackage, gemName, gemFqn, gemValueInfos );
+        GemInfo gemInfo = new GemInfo(
+            gemPackage,
+            gemName,
+            gemFqn,
+            gemValueInfos,
+            Arrays.asList( definingElement, gemDeclaredType.asElement() )
+        );
         gemInfos.add( gemInfo );
     }
 
@@ -200,6 +210,24 @@ public class GemProcessor extends AbstractProcessor {
                 template.process( templateData, writer );
             }
             catch ( TemplateException | IOException ex ) {
+                throw new IllegalStateException( ex );
+            }
+        }
+        // handled all info, clear
+        gemInfos.clear();
+    }
+
+    private void writeWithJavaPoet( ) {
+        for ( GemInfo gemInfo : gemInfos ) {
+            TypeSpec gemSpec = JavaPoetWriter.createGemSpec( gemInfo );
+            JavaFile javaFile = JavaFile.builder( gemInfo.getGemPackageName(), gemSpec )
+                .indent( "    " )
+                .skipJavaLangImports( true )
+                .build();
+            try {
+                javaFile.writeTo( processingEnv.getFiler() );
+            }
+            catch ( Exception ex ) {
                 throw new IllegalStateException( ex );
             }
         }
