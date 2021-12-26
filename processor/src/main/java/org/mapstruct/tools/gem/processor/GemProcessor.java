@@ -105,7 +105,14 @@ public class GemProcessor extends AbstractProcessor {
         List<GemValueInfo> gemValueInfos = methods.stream()
             .map( e -> new GemValueInfo( e.getSimpleName().toString(), e.getReturnType() ) )
             .collect( Collectors.toList() );
-        GemInfo gemInfo = new GemInfo( gemPackage, gemName, gemFqn, gemValueInfos );
+        GemInfo gemInfo = new GemInfo(
+            gemPackage,
+            gemName,
+            gemFqn,
+            gemValueInfos,
+            definingElement,
+            gemDeclaredType.asElement()
+        );
         gemInfos.add( gemInfo );
     }
 
@@ -183,11 +190,12 @@ public class GemProcessor extends AbstractProcessor {
     }
 
     private void write( ) {
-        TypeElement gemElement = processingEnv.getElementUtils()
-            .getTypeElement( "org.annotationhelper.GemDefinitions" );
         for ( GemInfo gemInfo : gemInfos ) {
             try (Writer writer = processingEnv.getFiler()
-                .createSourceFile( gemInfo.getGemPackageName() + "." + gemInfo.getGemName(), gemElement )
+                .createSourceFile(
+                    gemInfo.getGemPackageName() + "." + gemInfo.getGemName(),
+                    gemInfo.getOriginatingElements()
+                )
                 .openWriter()) {
                 Configuration cfg = new Configuration( new Version( "2.3.21" ) );
                 cfg.setClassForTemplateLoading( GemProcessor.class, "/" );
