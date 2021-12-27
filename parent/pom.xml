@@ -27,7 +27,7 @@
         <com.puppycrawl.tools.checkstyle.version>8.29</com.puppycrawl.tools.checkstyle.version>
         <add.release.arguments />
         <forkCount>1</forkCount>
-        <assertj.version>3.11.1</assertj.version>
+        <assertj.version>3.17.2</assertj.version>
     </properties>
 
     <licenses>
@@ -286,7 +286,7 @@
                 <configuration>
                     <header>${basedir}/../etc/license.txt</header>
                     <strictCheck>true</strictCheck>
-                    <excludes>
+                    <excludes combine.children="append">
                         <exclude>**/.idea/**</exclude>
                         <exclude>**/.mvn/**</exclude>
                         <exclude>**/etc/checkstyle.xml</exclude>
