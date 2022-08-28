@@ -65,7 +65,12 @@ public class JavaPoetWriter {
                 .returns( gemValueParameterTypeName( gemValueInfo.getValueType() ) )
                 .addStatement( "return this.$N", gemValueInfo.getName() )
                 .addJavadoc( "accessor\n" )
-                .addJavadoc( "\n@return the {@link $L} for {@link $L#$L}", GEM_VALUE.simpleName(), gemInfo.getGemName(), gemValueInfo.getName() )
+                .addJavadoc(
+                    "\n@return the {@link $L} for {@link $L#$L}",
+                    GEM_VALUE.simpleName(),
+                    gemInfo.getGemName(),
+                    gemValueInfo.getName()
+                )
                 .build() );
 
             fields.add( FieldSpec.builder(
@@ -148,8 +153,17 @@ public class JavaPoetWriter {
             gemSetterMethods.add( MethodSpec.methodBuilder( "set" + Util.capitalize( gemValueInfo.getName() ) )
                 .addModifiers( Modifier.PUBLIC, Modifier.ABSTRACT )
                 .addParameter( createParameterSpec( gemValueInfo ) )
-                .addJavadoc( "Sets the {@link $T} for {@link $L#$L}", GEM_VALUE, gemInfo.getGemName(), gemValueInfo.getName() )
-                .addJavadoc( "\n\n@return the {@link $T} for this gem, representing {@link $L}", gemBuilder, gemInfo.getGemName() )
+                .addJavadoc(
+                    "Sets the {@link $T} for {@link $L#$L}",
+                    GEM_VALUE,
+                    gemInfo.getGemName(),
+                    gemValueInfo.getName()
+                )
+                .addJavadoc(
+                    "\n\n@return the {@link $T} for this gem, representing {@link $L}",
+                    gemBuilder,
+                    gemInfo.getGemName()
+                )
                 .returns( gemBuilder )
                 .build() );
 
@@ -167,7 +181,11 @@ public class JavaPoetWriter {
                 .returns( gemBuilder )
                 .addJavadoc( "Sets the annotation mirror\n" )
                 .addJavadoc( "\n@param mirror the mirror which this gem represents" )
-                .addJavadoc( "\n\n@return the {@link $L} for this gem, representing {@link $L}", gemBuilder.simpleName(), gemInfo.getGemName() )
+                .addJavadoc(
+                    "\n\n@return the {@link $L} for this gem, representing {@link $L}",
+                    gemBuilder.simpleName(),
+                    gemInfo.getGemName()
+                )
                 .build() )
             .addMethod( MethodSpec.methodBuilder( "build" )
                 .addModifiers( Modifier.PUBLIC, Modifier.ABSTRACT )
@@ -365,8 +383,8 @@ public class JavaPoetWriter {
             if ( valueType.isArray() ) {
                 return CodeBlock.builder()
                     .addStatement(
-                        "builder.set$N( $T.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) " +
-                            ") )",
+                        "builder.set$N( $T.createEnumArray( values.get( methodName ), " +
+                            "defaultValues.get( methodName ) ) )",
                         name,
                         GEM_VALUE
                     )
