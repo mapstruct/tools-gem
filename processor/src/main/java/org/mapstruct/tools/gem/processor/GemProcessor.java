@@ -5,15 +5,12 @@
  */
 package org.mapstruct.tools.gem.processor;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.processing.AbstractProcessor;
@@ -32,10 +29,8 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.Version;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 
 /**
  * @author sjaakd
@@ -110,8 +105,7 @@ public class GemProcessor extends AbstractProcessor {
             gemName,
             gemFqn,
             gemValueInfos,
-            definingElement,
-            gemDeclaredType.asElement()
+            Arrays.asList( definingElement, gemDeclaredType.asElement() )
         );
         gemInfos.add( gemInfo );
     }
@@ -191,23 +185,15 @@ public class GemProcessor extends AbstractProcessor {
 
     private void write( ) {
         for ( GemInfo gemInfo : gemInfos ) {
-            try (Writer writer = processingEnv.getFiler()
-                .createSourceFile(
-                    gemInfo.getGemPackageName() + "." + gemInfo.getGemName(),
-                    gemInfo.getOriginatingElements()
-                )
-                .openWriter()) {
-                Configuration cfg = new Configuration( new Version( "2.3.21" ) );
-                cfg.setClassForTemplateLoading( GemProcessor.class, "/" );
-                cfg.setDefaultEncoding( "UTF-8" );
-
-                Map<String, Object> templateData = new HashMap<>();
-
-                templateData.put( "gemInfo", gemInfo );
-                Template template = cfg.getTemplate( "org/mapstruct/tools/gem/processor/Gem.ftl" );
-                template.process( templateData, writer );
+            TypeSpec gemSpec = JavaPoetWriter.createGemSpec( gemInfo );
+            JavaFile javaFile = JavaFile.builder( gemInfo.getGemPackageName(), gemSpec )
+                .indent( "    " )
+                .skipJavaLangImports( true )
+                .build();
+            try {
+                javaFile.writeTo( processingEnv.getFiler() );
             }
-            catch ( TemplateException | IOException ex ) {
+            catch ( Exception ex ) {
                 throw new IllegalStateException( ex );
             }
         }

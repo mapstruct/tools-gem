@@ -27,7 +27,7 @@
         <com.puppycrawl.tools.checkstyle.version>8.29</com.puppycrawl.tools.checkstyle.version>
         <add.release.arguments />
         <forkCount>1</forkCount>
-        <assertj.version>3.17.2</assertj.version>
+        <assertj.version>3.23.1</assertj.version>
     </properties>
 
     <licenses>
@@ -93,12 +93,6 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>gem-processor</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.29</version>
             </dependency>
 
             <dependency>
