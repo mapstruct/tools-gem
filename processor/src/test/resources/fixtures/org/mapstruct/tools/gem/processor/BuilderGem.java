@@ -78,7 +78,7 @@ public class BuilderGem implements Gem {
          *
          * @return the {@link Builder_} for this gem, representing {@link BuilderGem}
          */
-          Builder_ setMirror( AnnotationMirror mirror );
+          Builder_<T> setMirror( AnnotationMirror mirror );
 
         /**
          * The build method can be overriden in a custom custom implementation, which allows
@@ -93,7 +93,7 @@ public class BuilderGem implements Gem {
 
         private AnnotationMirror mirror;
 
-        public Builder_  setMirror( AnnotationMirror mirror ) {
+        public Builder_<BuilderGem> setMirror( AnnotationMirror mirror ) {
             this.mirror = mirror;
             return this;
         }

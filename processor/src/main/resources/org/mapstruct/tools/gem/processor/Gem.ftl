@@ -151,7 +151,7 @@ public class ${gemInfo.gemName} implements Gem {
         *
         * @return the {@link ${gemInfo.builderName}} for this gem, representing {@link ${gemInfo.gemName}}
         */
-        ${gemInfo.builderName} set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> methodName );
+        ${gemInfo.builderName}<T> set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> methodName );
 
     </#list>
         /**
@@ -161,7 +161,7 @@ public class ${gemInfo.gemName} implements Gem {
          *
          * @return the {@link ${gemInfo.builderName}} for this gem, representing {@link ${gemInfo.gemName}}
          */
-          ${gemInfo.builderName} setMirror( AnnotationMirror mirror );
+          ${gemInfo.builderName}<T> setMirror( AnnotationMirror mirror );
 
         /**
          * The build method can be overriden in a custom custom implementation, which allows
@@ -180,13 +180,13 @@ public class ${gemInfo.gemName} implements Gem {
         private AnnotationMirror mirror;
 
     <#list gemInfo.gemValueInfos as gemValueInfo>
-        public ${gemInfo.builderName} set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name} ) {
+        public ${gemInfo.builderName}<${gemInfo.gemName}> set${gemValueInfo.name?capitalize}(GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name} ) {
             this.${gemValueInfo.name} = ${gemValueInfo.name};
             return this;
         }
 
     </#list>
-        public ${gemInfo.builderName}  setMirror( AnnotationMirror mirror ) {
+        public ${gemInfo.builderName}<${gemInfo.gemName}> setMirror( AnnotationMirror mirror ) {
             this.mirror = mirror;
             return this;
         }

@@ -420,154 +420,154 @@ public class SomeAnnotationGem implements Gem {
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyclasswithdefault(GemValue<TypeMirror> methodName );
+        Builder<T> setMyclasswithdefault(GemValue<TypeMirror> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myBooleanWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMybooleanwithdefault(GemValue<Boolean> methodName );
+        Builder<T> setMybooleanwithdefault(GemValue<Boolean> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myCharWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMycharwithdefault(GemValue<Character> methodName );
+        Builder<T> setMycharwithdefault(GemValue<Character> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myByteWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMybytewithdefault(GemValue<Byte> methodName );
+        Builder<T> setMybytewithdefault(GemValue<Byte> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#mShortWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMshortwithdefault(GemValue<Short> methodName );
+        Builder<T> setMshortwithdefault(GemValue<Short> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myIntWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyintwithdefault(GemValue<Integer> methodName );
+        Builder<T> setMyintwithdefault(GemValue<Integer> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myLongWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMylongwithdefault(GemValue<Integer> methodName );
+        Builder<T> setMylongwithdefault(GemValue<Integer> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myFloatWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyfloatwithdefault(GemValue<Float> methodName );
+        Builder<T> setMyfloatwithdefault(GemValue<Float> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myDoubleWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMydoublewithdefault(GemValue<Double> methodName );
+        Builder<T> setMydoublewithdefault(GemValue<Double> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myStringWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMystringwithdefault(GemValue<String> methodName );
+        Builder<T> setMystringwithdefault(GemValue<String> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myEnumWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyenumwithdefault(GemValue<String> methodName );
+        Builder<T> setMyenumwithdefault(GemValue<String> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myClass}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyclass(GemValue<TypeMirror> methodName );
+        Builder<T> setMyclass(GemValue<TypeMirror> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myBoolean}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyboolean(GemValue<Boolean> methodName );
+        Builder<T> setMyboolean(GemValue<Boolean> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myChar}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMychar(GemValue<Character> methodName );
+        Builder<T> setMychar(GemValue<Character> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myByte}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMybyte(GemValue<Byte> methodName );
+        Builder<T> setMybyte(GemValue<Byte> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myShort}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyshort(GemValue<Short> methodName );
+        Builder<T> setMyshort(GemValue<Short> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myInt}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyint(GemValue<Integer> methodName );
+        Builder<T> setMyint(GemValue<Integer> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myLong}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMylong(GemValue<Integer> methodName );
+        Builder<T> setMylong(GemValue<Integer> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myFloat}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyfloat(GemValue<Float> methodName );
+        Builder<T> setMyfloat(GemValue<Float> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myDouble}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMydouble(GemValue<Double> methodName );
+        Builder<T> setMydouble(GemValue<Double> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myString}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMystring(GemValue<String> methodName );
+        Builder<T> setMystring(GemValue<String> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myEnum}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
         */
-        Builder setMyenum(GemValue<String> methodName );
+        Builder<T> setMyenum(GemValue<String> methodName );
 
         /**
          * Sets the annotation mirror
@@ -576,7 +576,7 @@ public class SomeAnnotationGem implements Gem {
          *
          * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
          */
-          Builder setMirror( AnnotationMirror mirror );
+          Builder<T> setMirror( AnnotationMirror mirror );
 
         /**
          * The build method can be overriden in a custom custom implementation, which allows
@@ -613,117 +613,117 @@ public class SomeAnnotationGem implements Gem {
         private GemValue<String> myEnum;
         private AnnotationMirror mirror;
 
-        public Builder setMyclasswithdefault(GemValue<TypeMirror> myClassWithDefault ) {
+        public Builder<SomeAnnotationGem> setMyclasswithdefault(GemValue<TypeMirror> myClassWithDefault ) {
             this.myClassWithDefault = myClassWithDefault;
             return this;
         }
 
-        public Builder setMybooleanwithdefault(GemValue<Boolean> myBooleanWithDefault ) {
+        public Builder<SomeAnnotationGem> setMybooleanwithdefault(GemValue<Boolean> myBooleanWithDefault ) {
             this.myBooleanWithDefault = myBooleanWithDefault;
             return this;
         }
 
-        public Builder setMycharwithdefault(GemValue<Character> myCharWithDefault ) {
+        public Builder<SomeAnnotationGem> setMycharwithdefault(GemValue<Character> myCharWithDefault ) {
             this.myCharWithDefault = myCharWithDefault;
             return this;
         }
 
-        public Builder setMybytewithdefault(GemValue<Byte> myByteWithDefault ) {
+        public Builder<SomeAnnotationGem> setMybytewithdefault(GemValue<Byte> myByteWithDefault ) {
             this.myByteWithDefault = myByteWithDefault;
             return this;
         }
 
-        public Builder setMshortwithdefault(GemValue<Short> mShortWithDefault ) {
+        public Builder<SomeAnnotationGem> setMshortwithdefault(GemValue<Short> mShortWithDefault ) {
             this.mShortWithDefault = mShortWithDefault;
             return this;
         }
 
-        public Builder setMyintwithdefault(GemValue<Integer> myIntWithDefault ) {
+        public Builder<SomeAnnotationGem> setMyintwithdefault(GemValue<Integer> myIntWithDefault ) {
             this.myIntWithDefault = myIntWithDefault;
             return this;
         }
 
-        public Builder setMylongwithdefault(GemValue<Integer> myLongWithDefault ) {
+        public Builder<SomeAnnotationGem> setMylongwithdefault(GemValue<Integer> myLongWithDefault ) {
             this.myLongWithDefault = myLongWithDefault;
             return this;
         }
 
-        public Builder setMyfloatwithdefault(GemValue<Float> myFloatWithDefault ) {
+        public Builder<SomeAnnotationGem> setMyfloatwithdefault(GemValue<Float> myFloatWithDefault ) {
             this.myFloatWithDefault = myFloatWithDefault;
             return this;
         }
 
-        public Builder setMydoublewithdefault(GemValue<Double> myDoubleWithDefault ) {
+        public Builder<SomeAnnotationGem> setMydoublewithdefault(GemValue<Double> myDoubleWithDefault ) {
             this.myDoubleWithDefault = myDoubleWithDefault;
             return this;
         }
 
-        public Builder setMystringwithdefault(GemValue<String> myStringWithDefault ) {
+        public Builder<SomeAnnotationGem> setMystringwithdefault(GemValue<String> myStringWithDefault ) {
             this.myStringWithDefault = myStringWithDefault;
             return this;
         }
 
-        public Builder setMyenumwithdefault(GemValue<String> myEnumWithDefault ) {
+        public Builder<SomeAnnotationGem> setMyenumwithdefault(GemValue<String> myEnumWithDefault ) {
             this.myEnumWithDefault = myEnumWithDefault;
             return this;
         }
 
-        public Builder setMyclass(GemValue<TypeMirror> myClass ) {
+        public Builder<SomeAnnotationGem> setMyclass(GemValue<TypeMirror> myClass ) {
             this.myClass = myClass;
             return this;
         }
 
-        public Builder setMyboolean(GemValue<Boolean> myBoolean ) {
+        public Builder<SomeAnnotationGem> setMyboolean(GemValue<Boolean> myBoolean ) {
             this.myBoolean = myBoolean;
             return this;
         }
 
-        public Builder setMychar(GemValue<Character> myChar ) {
+        public Builder<SomeAnnotationGem> setMychar(GemValue<Character> myChar ) {
             this.myChar = myChar;
             return this;
         }
 
-        public Builder setMybyte(GemValue<Byte> myByte ) {
+        public Builder<SomeAnnotationGem> setMybyte(GemValue<Byte> myByte ) {
             this.myByte = myByte;
             return this;
         }
 
-        public Builder setMyshort(GemValue<Short> myShort ) {
+        public Builder<SomeAnnotationGem> setMyshort(GemValue<Short> myShort ) {
             this.myShort = myShort;
             return this;
         }
 
-        public Builder setMyint(GemValue<Integer> myInt ) {
+        public Builder<SomeAnnotationGem> setMyint(GemValue<Integer> myInt ) {
             this.myInt = myInt;
             return this;
         }
 
-        public Builder setMylong(GemValue<Integer> myLong ) {
+        public Builder<SomeAnnotationGem> setMylong(GemValue<Integer> myLong ) {
             this.myLong = myLong;
             return this;
         }
 
-        public Builder setMyfloat(GemValue<Float> myFloat ) {
+        public Builder<SomeAnnotationGem> setMyfloat(GemValue<Float> myFloat ) {
             this.myFloat = myFloat;
             return this;
         }
 
-        public Builder setMydouble(GemValue<Double> myDouble ) {
+        public Builder<SomeAnnotationGem> setMydouble(GemValue<Double> myDouble ) {
             this.myDouble = myDouble;
             return this;
         }
 
-        public Builder setMystring(GemValue<String> myString ) {
+        public Builder<SomeAnnotationGem> setMystring(GemValue<String> myString ) {
             this.myString = myString;
             return this;
         }
 
-        public Builder setMyenum(GemValue<String> myEnum ) {
+        public Builder<SomeAnnotationGem> setMyenum(GemValue<String> myEnum ) {
             this.myEnum = myEnum;
             return this;
         }
 
-        public Builder  setMirror( AnnotationMirror mirror ) {
+        public Builder<SomeAnnotationGem> setMirror( AnnotationMirror mirror ) {
             this.mirror = mirror;
             return this;
         }
