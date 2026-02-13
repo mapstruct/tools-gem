@@ -106,27 +106,27 @@ public class ${gemInfo.gemName} implements Gem {
         mirror.getElementValues().entrySet().forEach( e -> values.put( e.getKey().getSimpleName().toString(), e.getValue() ) );
 
         // iterate and populate builder
-        for ( String methodName : defaultValues.keySet() ) {
-
+        for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
+            String methodName = defaultMethod.getKey();
         <#macro fillBuilder gemValueInfo indnet>
         ${indnet}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
                     <#if gemValueInfo.valueType.gem>
                         <#if gemValueInfo.valueType.array>
-                            GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                            GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
                         <#else>
-                            GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                            GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
                         </#if>
                     <#elseif gemValueInfo.valueType.enum>
                         <#if gemValueInfo.valueType.array>
-                            GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) )
+                            GemValue.createEnumArray( values.get( methodName ), defaultMethod.getValue() )
                         <#else>
-                            GemValue.createEnum( values.get( methodName ), defaultValues.get( methodName ) )
+                            GemValue.createEnum( values.get( methodName ), defaultMethod.getValue() )
                         </#if>
                     <#else>
                         <#if gemValueInfo.valueType.array>
-                            GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                            GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
                         <#else>
-                            GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                            GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
                         </#if>
                     </#if>
                         );
@@ -141,7 +141,7 @@ public class ${gemInfo.gemName} implements Gem {
             }
         </#list>
         <#else>
-            switch (methodName) {
+            switch ( methodName ) {
             <#list gemInfo.gemValueInfos as gemValueInfo>
                 case "${gemValueInfo.name}":
                     <#assign indentString = "            ">

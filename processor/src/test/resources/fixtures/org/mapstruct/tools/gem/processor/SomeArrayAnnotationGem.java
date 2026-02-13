@@ -120,20 +120,20 @@ public class SomeArrayAnnotationGem implements Gem {
         mirror.getElementValues().entrySet().forEach( e -> values.put( e.getKey().getSimpleName().toString(), e.getValue() ) );
 
         // iterate and populate builder
-        for ( String methodName : defaultValues.keySet() ) {
-
-            switch (methodName) {
+        for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
+            String methodName = defaultMethod.getKey();
+            switch ( methodName ) {
                 case "myClassWithDefault":
-                    builder.setMyclasswithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), TypeMirror.class ) );
+                    builder.setMyclasswithdefault( GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), TypeMirror.class ) );
                     break;
                 case "myBooleanWithDefault":
-                    builder.setMybooleanwithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), Boolean.class ) );
+                    builder.setMybooleanwithdefault( GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), Boolean.class ) );
                     break;
                 case "myEnumWithDefault":
-                    builder.setMyenumwithdefault( GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) ) );
+                    builder.setMyenumwithdefault( GemValue.createEnumArray( values.get( methodName ), defaultMethod.getValue() ) );
                     break;
                 case "myAnnotation":
-                    builder.setMyannotation( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), SomeAnnotationGem::instanceOn ) );
+                    builder.setMyannotation( GemValue.create( values.get( methodName ), defaultMethod.getValue(), SomeAnnotationGem::instanceOn ) );
                     break;
             }
         }
