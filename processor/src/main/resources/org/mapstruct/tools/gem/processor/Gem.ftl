@@ -108,31 +108,49 @@ public class ${gemInfo.gemName} implements Gem {
         // iterate and populate builder
         for ( String methodName : defaultValues.keySet() ) {
 
+        <#macro fillBuilder gemValueInfo indnet>
+        ${indnet}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
+                    <#if gemValueInfo.valueType.gem>
+                        <#if gemValueInfo.valueType.array>
+                            GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                        <#else>
+                            GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
+                        </#if>
+                    <#elseif gemValueInfo.valueType.enum>
+                        <#if gemValueInfo.valueType.array>
+                            GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) )
+                        <#else>
+                            GemValue.createEnum( values.get( methodName ), defaultValues.get( methodName ) )
+                        </#if>
+                    <#else>
+                        <#if gemValueInfo.valueType.array>
+                            GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                        <#else>
+                            GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
+                        </#if>
+                    </#if>
+                        );
+                </@compress>
+        </#macro>
+        <#if (gemInfo.gemValueInfos?size < 4)>
         <#list gemInfo.gemValueInfos as gemValueInfo>
             <#if gemValueInfo_index != 0>else </#if>if ( "${gemValueInfo.name}".equals( methodName ) ) {
-                <@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
-                        <#if gemValueInfo.valueType.gem>
-                            <#if gemValueInfo.valueType.array>
-                                GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
-                            <#else>
-                                GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
-                            </#if>
-                        <#elseif gemValueInfo.valueType.enum>
-                            <#if gemValueInfo.valueType.array>
-                                GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) )
-                            <#else>
-                                GemValue.createEnum( values.get( methodName ), defaultValues.get( methodName ) )
-                            </#if>
-                        <#else>
-                            <#if gemValueInfo.valueType.array>
-                                GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
-                            <#else>
-                                GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
-                            </#if>
-                        </#if>
-                    );</@compress>
+                <#assign indentString = "        ">
+                <@fillBuilder gemValueInfo, indentString/>
+
             }
         </#list>
+        <#else>
+            switch (methodName) {
+            <#list gemInfo.gemValueInfos as gemValueInfo>
+                case "${gemValueInfo.name}":
+                    <#assign indentString = "            ">
+                    <@fillBuilder gemValueInfo, indentString/>
+
+                    break;
+           </#list>
+            }
+        </#if>
         }
         </#if>
         builder.setMirror( mirror );

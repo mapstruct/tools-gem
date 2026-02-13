@@ -122,17 +122,19 @@ public class SomeArrayAnnotationGem implements Gem {
         // iterate and populate builder
         for ( String methodName : defaultValues.keySet() ) {
 
-            if ( "myClassWithDefault".equals( methodName ) ) {
-                builder.setMyclasswithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), TypeMirror.class ) );
-            }
-            else if ( "myBooleanWithDefault".equals( methodName ) ) {
-                builder.setMybooleanwithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), Boolean.class ) );
-            }
-            else if ( "myEnumWithDefault".equals( methodName ) ) {
-                builder.setMyenumwithdefault( GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) ) );
-            }
-            else if ( "myAnnotation".equals( methodName ) ) {
-                builder.setMyannotation( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), SomeAnnotationGem::instanceOn ) );
+            switch (methodName) {
+                case "myClassWithDefault":
+                    builder.setMyclasswithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), TypeMirror.class ) );
+                    break;
+                case "myBooleanWithDefault":
+                    builder.setMybooleanwithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), Boolean.class ) );
+                    break;
+                case "myEnumWithDefault":
+                    builder.setMyenumwithdefault( GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) ) );
+                    break;
+                case "myAnnotation":
+                    builder.setMyannotation( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), SomeAnnotationGem::instanceOn ) );
+                    break;
             }
         }
         builder.setMirror( mirror );
