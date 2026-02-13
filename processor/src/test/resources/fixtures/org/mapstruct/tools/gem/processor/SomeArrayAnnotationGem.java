@@ -34,10 +34,10 @@ public class SomeArrayAnnotationGem implements Gem {
         this.myBooleanWithDefault = builder.myBooleanWithDefault;
         this.myEnumWithDefault = builder.myEnumWithDefault;
         this.myAnnotation = builder.myAnnotation;
-        isValid = ( this.myClassWithDefault != null ? this.myClassWithDefault.isValid() : false )
-               && ( this.myBooleanWithDefault != null ? this.myBooleanWithDefault.isValid() : false )
-               && ( this.myEnumWithDefault != null ? this.myEnumWithDefault.isValid() : false )
-               && ( this.myAnnotation != null ? this.myAnnotation.isValid() : false );
+        isValid = ( this.myClassWithDefault != null && this.myClassWithDefault.isValid() )
+               && ( this.myBooleanWithDefault != null && this.myBooleanWithDefault.isValid() )
+               && ( this.myEnumWithDefault != null && this.myEnumWithDefault.isValid() )
+               && ( this.myAnnotation != null && this.myAnnotation.isValid() );
         mirror = builder.mirror;
     }
 

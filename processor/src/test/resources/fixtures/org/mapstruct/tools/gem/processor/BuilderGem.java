@@ -21,11 +21,9 @@ import org.mapstruct.tools.gem.GemValue;
 
 public class BuilderGem implements Gem {
 
-    private final boolean isValid;
     private final AnnotationMirror mirror;
 
     private BuilderGem( BuilderImpl builder ) {
-        isValid = true;
         mirror = builder.mirror;
     }
 
@@ -36,7 +34,7 @@ public class BuilderGem implements Gem {
 
     @Override
     public boolean isValid( ) {
-        return isValid;
+        return true;
     }
 
     public static BuilderGem  instanceOn(Element element) {
