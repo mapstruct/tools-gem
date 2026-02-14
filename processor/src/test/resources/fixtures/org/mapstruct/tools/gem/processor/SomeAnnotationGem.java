@@ -333,7 +333,7 @@ public class SomeAnnotationGem implements Gem {
 
         // fetch all explicitely set annotation values in the annotation instance
         Map<String, AnnotationValue> values = new HashMap<>( enclosed.size() );
-        mirror.getElementValues().entrySet().forEach( e -> values.put( e.getKey().getSimpleName().toString(), e.getValue() ) );
+        mirror.getElementValues().forEach( (key, value) -> values.put( key.getSimpleName().toString(), value ) );
 
         // iterate and populate builder
         for ( String methodName : defaultValues.keySet() ) {
