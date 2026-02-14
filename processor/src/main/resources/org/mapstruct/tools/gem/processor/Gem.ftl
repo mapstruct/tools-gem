@@ -35,7 +35,9 @@ public class ${gemInfo.gemName} implements Gem {
 <#list gemInfo.gemValueInfos as gemValueInfo>
     private final GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name};
 </#list>
+<#if (gemInfo.gemValueInfos?size > 0) >
     private final boolean isValid;
+</#if>
     private final AnnotationMirror mirror;
 
     private ${gemInfo.gemName}( ${gemInfo.builderImplName} builder ) {
@@ -43,11 +45,8 @@ public class ${gemInfo.gemName} implements Gem {
         this.${gemValueInfo.name} = builder.${gemValueInfo.name};
     </#list>
     <#list gemInfo.gemValueInfos as gemValueInfo>
-        <#if gemValueInfo_index == 0>isValid = <#else>       && </#if>( this.${gemValueInfo.name} != null ? this.${gemValueInfo.name}.isValid() : false )<#if !(gemValueInfo_has_next)>;</#if>
+        <#if gemValueInfo_index == 0>isValid = <#else>       && </#if>( this.${gemValueInfo.name} != null && this.${gemValueInfo.name}.isValid() )<#if !(gemValueInfo_has_next)>;</#if>
     </#list>
-    <#if gemInfo.gemValueInfos?size==0>
-        isValid = true;
-    </#if>
         mirror = builder.mirror;
     }
 
@@ -69,7 +68,11 @@ public class ${gemInfo.gemName} implements Gem {
 
     @Override
     public boolean isValid( ) {
+    <#if gemInfo.gemValueInfos?size == 0>
+        return true;
+    <#else>
         return isValid;
+    </#if>
     }
 
     public static ${gemInfo.gemName}  instanceOn(Element element) {

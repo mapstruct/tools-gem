@@ -27,7 +27,7 @@ public class SomeAnnotationsGem implements Gem {
 
     private SomeAnnotationsGem( BuilderImpl builder ) {
         this.value = builder.value;
-        isValid = ( this.value != null ? this.value.isValid() : false );
+        isValid = ( this.value != null && this.value.isValid() );
         mirror = builder.mirror;
     }
 
