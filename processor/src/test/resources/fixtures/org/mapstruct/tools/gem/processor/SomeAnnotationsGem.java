@@ -104,7 +104,7 @@ public class SomeAnnotationsGem implements Gem {
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationsGem}
         */
-        Builder setValue(GemValue<List<SomeAnnotationGem>> methodName );
+        Builder<T> setValue(GemValue<List<SomeAnnotationGem>> methodName );
 
         /**
          * Sets the annotation mirror
@@ -113,7 +113,7 @@ public class SomeAnnotationsGem implements Gem {
          *
          * @return the {@link Builder} for this gem, representing {@link SomeAnnotationsGem}
          */
-          Builder setMirror( AnnotationMirror mirror );
+          Builder<T> setMirror( AnnotationMirror mirror );
 
         /**
          * The build method can be overriden in a custom custom implementation, which allows
@@ -129,12 +129,12 @@ public class SomeAnnotationsGem implements Gem {
         private GemValue<List<SomeAnnotationGem>> value;
         private AnnotationMirror mirror;
 
-        public Builder setValue(GemValue<List<SomeAnnotationGem>> value ) {
+        public Builder<SomeAnnotationsGem> setValue(GemValue<List<SomeAnnotationGem>> value ) {
             this.value = value;
             return this;
         }
 
-        public Builder  setMirror( AnnotationMirror mirror ) {
+        public Builder<SomeAnnotationsGem> setMirror( AnnotationMirror mirror ) {
             this.mirror = mirror;
             return this;
         }

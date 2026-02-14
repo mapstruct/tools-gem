@@ -150,28 +150,28 @@ public class SomeArrayAnnotationGem implements Gem {
         *
         * @return the {@link Builder} for this gem, representing {@link SomeArrayAnnotationGem}
         */
-        Builder setMyclasswithdefault(GemValue<List<TypeMirror>> methodName );
+        Builder<T> setMyclasswithdefault(GemValue<List<TypeMirror>> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeArrayAnnotationGem#myBooleanWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeArrayAnnotationGem}
         */
-        Builder setMybooleanwithdefault(GemValue<List<Boolean>> methodName );
+        Builder<T> setMybooleanwithdefault(GemValue<List<Boolean>> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeArrayAnnotationGem#myEnumWithDefault}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeArrayAnnotationGem}
         */
-        Builder setMyenumwithdefault(GemValue<List<String>> methodName );
+        Builder<T> setMyenumwithdefault(GemValue<List<String>> methodName );
 
        /**
         * Sets the {@link GemValue} for {@link SomeArrayAnnotationGem#myAnnotation}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeArrayAnnotationGem}
         */
-        Builder setMyannotation(GemValue<SomeAnnotationGem> methodName );
+        Builder<T> setMyannotation(GemValue<SomeAnnotationGem> methodName );
 
         /**
          * Sets the annotation mirror
@@ -180,7 +180,7 @@ public class SomeArrayAnnotationGem implements Gem {
          *
          * @return the {@link Builder} for this gem, representing {@link SomeArrayAnnotationGem}
          */
-          Builder setMirror( AnnotationMirror mirror );
+          Builder<T> setMirror( AnnotationMirror mirror );
 
         /**
          * The build method can be overriden in a custom custom implementation, which allows
@@ -199,27 +199,27 @@ public class SomeArrayAnnotationGem implements Gem {
         private GemValue<SomeAnnotationGem> myAnnotation;
         private AnnotationMirror mirror;
 
-        public Builder setMyclasswithdefault(GemValue<List<TypeMirror>> myClassWithDefault ) {
+        public Builder<SomeArrayAnnotationGem> setMyclasswithdefault(GemValue<List<TypeMirror>> myClassWithDefault ) {
             this.myClassWithDefault = myClassWithDefault;
             return this;
         }
 
-        public Builder setMybooleanwithdefault(GemValue<List<Boolean>> myBooleanWithDefault ) {
+        public Builder<SomeArrayAnnotationGem> setMybooleanwithdefault(GemValue<List<Boolean>> myBooleanWithDefault ) {
             this.myBooleanWithDefault = myBooleanWithDefault;
             return this;
         }
 
-        public Builder setMyenumwithdefault(GemValue<List<String>> myEnumWithDefault ) {
+        public Builder<SomeArrayAnnotationGem> setMyenumwithdefault(GemValue<List<String>> myEnumWithDefault ) {
             this.myEnumWithDefault = myEnumWithDefault;
             return this;
         }
 
-        public Builder setMyannotation(GemValue<SomeAnnotationGem> myAnnotation ) {
+        public Builder<SomeArrayAnnotationGem> setMyannotation(GemValue<SomeAnnotationGem> myAnnotation ) {
             this.myAnnotation = myAnnotation;
             return this;
         }
 
-        public Builder  setMirror( AnnotationMirror mirror ) {
+        public Builder<SomeArrayAnnotationGem> setMirror( AnnotationMirror mirror ) {
             this.mirror = mirror;
             return this;
         }
