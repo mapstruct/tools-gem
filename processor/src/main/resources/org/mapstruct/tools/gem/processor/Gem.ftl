@@ -88,30 +88,6 @@ public class ${gemInfo.gemName} implements Gem {
         return build( mirror, builder );
     }
 
-<#macro fillBuilder gemValueInfo indent>
-    ${indent}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
-    <#if gemValueInfo.valueType.gem>
-        <#if gemValueInfo.valueType.array>
-                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
-        <#else>
-                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
-        </#if>
-    <#elseif gemValueInfo.valueType.enum>
-        <#if gemValueInfo.valueType.array>
-                    GemValue.createEnumArray( value, defaultValue )
-        <#else>
-                    GemValue.createEnum( value, defaultValue )
-        </#if>
-    <#else>
-        <#if gemValueInfo.valueType.array>
-                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
-        <#else>
-                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
-        </#if>
-    </#if>
-    );
-    </@compress>
-</#macro>
     public static <T> T build(AnnotationMirror mirror, ${gemInfo.builderName}<T> builder ) {
 
         // return fast
@@ -217,3 +193,27 @@ public class ${gemInfo.gemName} implements Gem {
     }
 
 }
+<#macro fillBuilder gemValueInfo indent>
+    ${indent}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
+    <#if gemValueInfo.valueType.gem>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
+        <#else>
+                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
+        </#if>
+    <#elseif gemValueInfo.valueType.enum>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createEnumArray( value, defaultValue )
+        <#else>
+                    GemValue.createEnum( value, defaultValue )
+        </#if>
+    <#else>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
+        <#else>
+                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
+        </#if>
+    </#if>
+    );
+</@compress>
+</#macro>
