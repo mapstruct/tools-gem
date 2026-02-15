@@ -133,18 +133,18 @@ public class ${gemInfo.gemName} implements Gem {
         for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
             String methodName = defaultMethod.getKey();
         <#if (gemInfo.gemValueInfos?size < 4)>
+        <#assign indentString = "            ">
         <#list gemInfo.gemValueInfos as gemValueInfo>
             <#if gemValueInfo_index != 0>else </#if>if ( "${gemValueInfo.name}".equals( methodName ) ) {
-                <#assign indentString = "            ">
                 <@fillBuilder gemValueInfo, indentString/>
 
             }
         </#list>
         <#else>
             switch ( methodName ) {
+            <#assign indentString = "                ">
             <#list gemInfo.gemValueInfos as gemValueInfo>
                 case "${gemValueInfo.name}":
-                    <#assign indentString = "                ">
                     <@fillBuilder gemValueInfo, indentString/>
 
                     break;
