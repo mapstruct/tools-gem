@@ -88,6 +88,30 @@ public class ${gemInfo.gemName} implements Gem {
         return build( mirror, builder );
     }
 
+<#macro fillBuilder gemValueInfo indnet>
+    ${indnet}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
+    <#if gemValueInfo.valueType.gem>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
+        <#else>
+                    GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
+        </#if>
+    <#elseif gemValueInfo.valueType.enum>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createEnumArray( values.get( methodName ), defaultMethod.getValue() )
+        <#else>
+                    GemValue.createEnum( values.get( methodName ), defaultMethod.getValue() )
+        </#if>
+    <#else>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
+        <#else>
+                    GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
+        </#if>
+    </#if>
+    );
+    </@compress>
+</#macro>
     public static <T> T build(AnnotationMirror mirror, ${gemInfo.builderName}<T> builder ) {
 
         // return fast
@@ -108,34 +132,10 @@ public class ${gemInfo.gemName} implements Gem {
         // iterate and populate builder
         for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
             String methodName = defaultMethod.getKey();
-        <#macro fillBuilder gemValueInfo indnet>
-        ${indnet}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
-                    <#if gemValueInfo.valueType.gem>
-                        <#if gemValueInfo.valueType.array>
-                            GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
-                        <#else>
-                            GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
-                        </#if>
-                    <#elseif gemValueInfo.valueType.enum>
-                        <#if gemValueInfo.valueType.array>
-                            GemValue.createEnumArray( values.get( methodName ), defaultMethod.getValue() )
-                        <#else>
-                            GemValue.createEnum( values.get( methodName ), defaultMethod.getValue() )
-                        </#if>
-                    <#else>
-                        <#if gemValueInfo.valueType.array>
-                            GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
-                        <#else>
-                            GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
-                        </#if>
-                    </#if>
-                        );
-                </@compress>
-        </#macro>
         <#if (gemInfo.gemValueInfos?size < 4)>
         <#list gemInfo.gemValueInfos as gemValueInfo>
             <#if gemValueInfo_index != 0>else </#if>if ( "${gemValueInfo.name}".equals( methodName ) ) {
-                <#assign indentString = "        ">
+                <#assign indentString = "            ">
                 <@fillBuilder gemValueInfo, indentString/>
 
             }
@@ -144,7 +144,7 @@ public class ${gemInfo.gemName} implements Gem {
             switch ( methodName ) {
             <#list gemInfo.gemValueInfos as gemValueInfo>
                 case "${gemValueInfo.name}":
-                    <#assign indentString = "            ">
+                    <#assign indentString = "                ">
                     <@fillBuilder gemValueInfo, indentString/>
 
                     break;
