@@ -88,8 +88,8 @@ public class ${gemInfo.gemName} implements Gem {
         return build( mirror, builder );
     }
 
-<#macro fillBuilder gemValueInfo indnet>
-    ${indnet}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
+<#macro fillBuilder gemValueInfo indent>
+    ${indent}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
     <#if gemValueInfo.valueType.gem>
         <#if gemValueInfo.valueType.array>
                     GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
