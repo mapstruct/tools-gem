@@ -92,21 +92,21 @@ public class ${gemInfo.gemName} implements Gem {
     ${indent}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
     <#if gemValueInfo.valueType.gem>
         <#if gemValueInfo.valueType.array>
-                    GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
+                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
         <#else>
-                    GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.gemName}::instanceOn )
+                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
         </#if>
     <#elseif gemValueInfo.valueType.enum>
         <#if gemValueInfo.valueType.array>
-                    GemValue.createEnumArray( values.get( methodName ), defaultMethod.getValue() )
+                    GemValue.createEnumArray( value, defaultValue )
         <#else>
-                    GemValue.createEnum( values.get( methodName ), defaultMethod.getValue() )
+                    GemValue.createEnum( value, defaultValue )
         </#if>
     <#else>
         <#if gemValueInfo.valueType.array>
-                    GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
+                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
         <#else>
-                    GemValue.create( values.get( methodName ), defaultMethod.getValue(), ${gemValueInfo.valueType.elementName}.class )
+                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
         </#if>
     </#if>
     );
@@ -132,6 +132,8 @@ public class ${gemInfo.gemName} implements Gem {
         // iterate and populate builder
         for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
             String methodName = defaultMethod.getKey();
+            AnnotationValue defaultValue = defaultMethod.getValue();
+            AnnotationValue value = values.get( methodName );
         <#if (gemInfo.gemValueInfos?size < 4)>
         <#assign indentString = "            ">
         <#list gemInfo.gemValueInfos as gemValueInfo>

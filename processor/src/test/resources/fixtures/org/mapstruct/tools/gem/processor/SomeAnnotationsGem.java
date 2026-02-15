@@ -85,8 +85,10 @@ public class SomeAnnotationsGem implements Gem {
         // iterate and populate builder
         for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
             String methodName = defaultMethod.getKey();
+            AnnotationValue defaultValue = defaultMethod.getValue();
+            AnnotationValue value = values.get( methodName );
             if ( "value".equals( methodName ) ) {
-                builder.setValue( GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), SomeAnnotationGem::instanceOn ) );
+                builder.setValue( GemValue.createArray( value, defaultValue, SomeAnnotationGem::instanceOn ) );
             }
         }
         builder.setMirror( mirror );

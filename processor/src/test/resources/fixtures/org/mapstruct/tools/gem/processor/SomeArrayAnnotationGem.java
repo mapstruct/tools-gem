@@ -122,18 +122,20 @@ public class SomeArrayAnnotationGem implements Gem {
         // iterate and populate builder
         for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
             String methodName = defaultMethod.getKey();
+            AnnotationValue defaultValue = defaultMethod.getValue();
+            AnnotationValue value = values.get( methodName );
             switch ( methodName ) {
                 case "myClassWithDefault":
-                    builder.setMyclasswithdefault( GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), TypeMirror.class ) );
+                    builder.setMyclasswithdefault( GemValue.createArray( value, defaultValue, TypeMirror.class ) );
                     break;
                 case "myBooleanWithDefault":
-                    builder.setMybooleanwithdefault( GemValue.createArray( values.get( methodName ), defaultMethod.getValue(), Boolean.class ) );
+                    builder.setMybooleanwithdefault( GemValue.createArray( value, defaultValue, Boolean.class ) );
                     break;
                 case "myEnumWithDefault":
-                    builder.setMyenumwithdefault( GemValue.createEnumArray( values.get( methodName ), defaultMethod.getValue() ) );
+                    builder.setMyenumwithdefault( GemValue.createEnumArray( value, defaultValue ) );
                     break;
                 case "myAnnotation":
-                    builder.setMyannotation( GemValue.create( values.get( methodName ), defaultMethod.getValue(), SomeAnnotationGem::instanceOn ) );
+                    builder.setMyannotation( GemValue.create( value, defaultValue, SomeAnnotationGem::instanceOn ) );
                     break;
             }
         }
