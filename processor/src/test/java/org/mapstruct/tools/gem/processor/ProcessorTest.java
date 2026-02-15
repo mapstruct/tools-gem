@@ -24,25 +24,18 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
-import org.assertj.core.api.JUnitSoftAssertions;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProcessorTest {
+class ProcessorTest {
 
-    // CHECKSTYLE:OFF
-    @Rule
-    public final TemporaryFolder tempDir = new TemporaryFolder(); //NOSONAR
-
-    @Rule
-    public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
-    // CHECKSTYLE:ON
+    @TempDir
+    private File tempDir;
 
     @Test
-    public void example() throws IOException, ClassNotFoundException {
+    void example() throws IOException {
         StringJavaFileObject src = new StringJavaFileObject(
             "org.mapstruct.annotations.processor.GemGenerator",
             getSource()
@@ -55,9 +48,9 @@ public class ProcessorTest {
 
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
         StandardJavaFileManager fileManager = compiler.getStandardFileManager( diagnostics, null, null );
-        File classesDir = tempDir.newFolder( "classes" );
+        File classesDir = newFolder( tempDir, "classes" );
         fileManager.setLocation( StandardLocation.CLASS_OUTPUT, Collections.singletonList( classesDir ) );
-        File generatedDir = tempDir.newFolder( "generated" );
+        File generatedDir = newFolder( tempDir, "generated" );
         fileManager.setLocation( StandardLocation.SOURCE_OUTPUT, Collections.singletonList( generatedDir ) );
 
         JavaCompiler.CompilationTask task = compiler.getTask(
@@ -88,7 +81,7 @@ public class ProcessorTest {
 
     protected void assertGeneratedFileContent(String gemName, File generatedDir) {
         Path gemPath = generatedDir.toPath().resolve( "org/mapstruct/tools/gem/processor/" + gemName + ".java" );
-        softly.assertThat( gemPath )
+        assertThat( gemPath )
             .as( gemName )
             .exists();
 
@@ -96,7 +89,7 @@ public class ProcessorTest {
              InputStream expectedGemStream = getClass().getClassLoader()
                  .getResourceAsStream( "fixtures/org/mapstruct/tools/gem/processor/" + gemName + ".java" )
         ) {
-            softly.assertThat( generatedGemStream )
+            assertThat( generatedGemStream )
                 .as( gemName )
                 .hasSameContentAs( expectedGemStream );
         }
@@ -138,5 +131,13 @@ public class ProcessorTest {
             "@GemDefinition(value = Builder.class)\n" +
             "public class GemGenerator {\n" +
             "}";
+    }
+
+    private static File newFolder(File root, String folder) throws IOException {
+        File result = new File(root, folder);
+        if (!result.mkdir()) {
+            throw new IOException("Couldn't create folder " + result);
+        }
+        return result;
     }
 }
