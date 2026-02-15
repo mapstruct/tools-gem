@@ -336,73 +336,77 @@ public class SomeAnnotationGem implements Gem {
         mirror.getElementValues().forEach( (key, value) -> values.put( key.getSimpleName().toString(), value ) );
 
         // iterate and populate builder
-        for ( String methodName : defaultValues.keySet() ) {
-
-            if ( "myClassWithDefault".equals( methodName ) ) {
-                builder.setMyclasswithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), TypeMirror.class ) );
-            }
-            else if ( "myBooleanWithDefault".equals( methodName ) ) {
-                builder.setMybooleanwithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Boolean.class ) );
-            }
-            else if ( "myCharWithDefault".equals( methodName ) ) {
-                builder.setMycharwithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Character.class ) );
-            }
-            else if ( "myByteWithDefault".equals( methodName ) ) {
-                builder.setMybytewithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Byte.class ) );
-            }
-            else if ( "mShortWithDefault".equals( methodName ) ) {
-                builder.setMshortwithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Short.class ) );
-            }
-            else if ( "myIntWithDefault".equals( methodName ) ) {
-                builder.setMyintwithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Integer.class ) );
-            }
-            else if ( "myLongWithDefault".equals( methodName ) ) {
-                builder.setMylongwithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Integer.class ) );
-            }
-            else if ( "myFloatWithDefault".equals( methodName ) ) {
-                builder.setMyfloatwithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Float.class ) );
-            }
-            else if ( "myDoubleWithDefault".equals( methodName ) ) {
-                builder.setMydoublewithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Double.class ) );
-            }
-            else if ( "myStringWithDefault".equals( methodName ) ) {
-                builder.setMystringwithdefault( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), String.class ) );
-            }
-            else if ( "myEnumWithDefault".equals( methodName ) ) {
-                builder.setMyenumwithdefault( GemValue.createEnum( values.get( methodName ), defaultValues.get( methodName ) ) );
-            }
-            else if ( "myClass".equals( methodName ) ) {
-                builder.setMyclass( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), TypeMirror.class ) );
-            }
-            else if ( "myBoolean".equals( methodName ) ) {
-                builder.setMyboolean( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Boolean.class ) );
-            }
-            else if ( "myChar".equals( methodName ) ) {
-                builder.setMychar( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Character.class ) );
-            }
-            else if ( "myByte".equals( methodName ) ) {
-                builder.setMybyte( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Byte.class ) );
-            }
-            else if ( "myShort".equals( methodName ) ) {
-                builder.setMyshort( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Short.class ) );
-            }
-            else if ( "myInt".equals( methodName ) ) {
-                builder.setMyint( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Integer.class ) );
-            }
-            else if ( "myLong".equals( methodName ) ) {
-                builder.setMylong( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Integer.class ) );
-            }
-            else if ( "myFloat".equals( methodName ) ) {
-                builder.setMyfloat( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Float.class ) );
-            }
-            else if ( "myDouble".equals( methodName ) ) {
-                builder.setMydouble( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), Double.class ) );
-            }
-            else if ( "myString".equals( methodName ) ) {
-                builder.setMystring( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), String.class ) );
-            }
-            else if ( "myEnum".equals( methodName ) ) {
-                builder.setMyenum( GemValue.createEnum( values.get( methodName ), defaultValues.get( methodName ) ) );
+        for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
+            String methodName = defaultMethod.getKey();
+            AnnotationValue defaultValue = defaultMethod.getValue();
+            AnnotationValue value = values.get( methodName );
+            switch ( methodName ) {
+                case "myClassWithDefault":
+                    builder.setMyclasswithdefault( GemValue.create( value, defaultValue, TypeMirror.class ) );
+                    break;
+                case "myBooleanWithDefault":
+                    builder.setMybooleanwithdefault( GemValue.create( value, defaultValue, Boolean.class ) );
+                    break;
+                case "myCharWithDefault":
+                    builder.setMycharwithdefault( GemValue.create( value, defaultValue, Character.class ) );
+                    break;
+                case "myByteWithDefault":
+                    builder.setMybytewithdefault( GemValue.create( value, defaultValue, Byte.class ) );
+                    break;
+                case "mShortWithDefault":
+                    builder.setMshortwithdefault( GemValue.create( value, defaultValue, Short.class ) );
+                    break;
+                case "myIntWithDefault":
+                    builder.setMyintwithdefault( GemValue.create( value, defaultValue, Integer.class ) );
+                    break;
+                case "myLongWithDefault":
+                    builder.setMylongwithdefault( GemValue.create( value, defaultValue, Integer.class ) );
+                    break;
+                case "myFloatWithDefault":
+                    builder.setMyfloatwithdefault( GemValue.create( value, defaultValue, Float.class ) );
+                    break;
+                case "myDoubleWithDefault":
+                    builder.setMydoublewithdefault( GemValue.create( value, defaultValue, Double.class ) );
+                    break;
+                case "myStringWithDefault":
+                    builder.setMystringwithdefault( GemValue.create( value, defaultValue, String.class ) );
+                    break;
+                case "myEnumWithDefault":
+                    builder.setMyenumwithdefault( GemValue.createEnum( value, defaultValue ) );
+                    break;
+                case "myClass":
+                    builder.setMyclass( GemValue.create( value, defaultValue, TypeMirror.class ) );
+                    break;
+                case "myBoolean":
+                    builder.setMyboolean( GemValue.create( value, defaultValue, Boolean.class ) );
+                    break;
+                case "myChar":
+                    builder.setMychar( GemValue.create( value, defaultValue, Character.class ) );
+                    break;
+                case "myByte":
+                    builder.setMybyte( GemValue.create( value, defaultValue, Byte.class ) );
+                    break;
+                case "myShort":
+                    builder.setMyshort( GemValue.create( value, defaultValue, Short.class ) );
+                    break;
+                case "myInt":
+                    builder.setMyint( GemValue.create( value, defaultValue, Integer.class ) );
+                    break;
+                case "myLong":
+                    builder.setMylong( GemValue.create( value, defaultValue, Integer.class ) );
+                    break;
+                case "myFloat":
+                    builder.setMyfloat( GemValue.create( value, defaultValue, Float.class ) );
+                    break;
+                case "myDouble":
+                    builder.setMydouble( GemValue.create( value, defaultValue, Double.class ) );
+                    break;
+                case "myString":
+                    builder.setMystring( GemValue.create( value, defaultValue, String.class ) );
+                    break;
+                case "myEnum":
+                    builder.setMyenum( GemValue.createEnum( value, defaultValue ) );
+                    break;
             }
         }
         builder.setMirror( mirror );

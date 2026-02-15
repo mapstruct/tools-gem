@@ -109,33 +109,29 @@ public class ${gemInfo.gemName} implements Gem {
         mirror.getElementValues().forEach( (key, value) -> values.put( key.getSimpleName().toString(), value ) );
 
         // iterate and populate builder
-        for ( String methodName : defaultValues.keySet() ) {
-
+        for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
+            String methodName = defaultMethod.getKey();
+            AnnotationValue defaultValue = defaultMethod.getValue();
+            AnnotationValue value = values.get( methodName );
+        <#if (gemInfo.gemValueInfos?size < 4)>
+        <#assign indentString = "            ">
         <#list gemInfo.gemValueInfos as gemValueInfo>
             <#if gemValueInfo_index != 0>else </#if>if ( "${gemValueInfo.name}".equals( methodName ) ) {
-                <@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
-                        <#if gemValueInfo.valueType.gem>
-                            <#if gemValueInfo.valueType.array>
-                                GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
-                            <#else>
-                                GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.gemName}::instanceOn )
-                            </#if>
-                        <#elseif gemValueInfo.valueType.enum>
-                            <#if gemValueInfo.valueType.array>
-                                GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) )
-                            <#else>
-                                GemValue.createEnum( values.get( methodName ), defaultValues.get( methodName ) )
-                            </#if>
-                        <#else>
-                            <#if gemValueInfo.valueType.array>
-                                GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
-                            <#else>
-                                GemValue.create( values.get( methodName ), defaultValues.get( methodName ), ${gemValueInfo.valueType.elementName}.class )
-                            </#if>
-                        </#if>
-                    );</@compress>
+                <@fillBuilder gemValueInfo, indentString/>
+
             }
         </#list>
+        <#else>
+            switch ( methodName ) {
+            <#assign indentString = "                ">
+            <#list gemInfo.gemValueInfos as gemValueInfo>
+                case "${gemValueInfo.name}":
+                    <@fillBuilder gemValueInfo, indentString/>
+
+                    break;
+           </#list>
+            }
+        </#if>
         }
         </#if>
         builder.setMirror( mirror );
@@ -200,3 +196,27 @@ public class ${gemInfo.gemName} implements Gem {
     }
 
 }
+<#macro fillBuilder gemValueInfo indent>
+    ${indent}<@compress single_line=true>builder.set${gemValueInfo.name?capitalize}(
+    <#if gemValueInfo.valueType.gem>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
+        <#else>
+                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.gemName}::instanceOn )
+        </#if>
+    <#elseif gemValueInfo.valueType.enum>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createEnumArray( value, defaultValue )
+        <#else>
+                    GemValue.createEnum( value, defaultValue )
+        </#if>
+    <#else>
+        <#if gemValueInfo.valueType.array>
+                    GemValue.createArray( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
+        <#else>
+                    GemValue.create( value, defaultValue, ${gemValueInfo.valueType.elementName}.class )
+        </#if>
+    </#if>
+    );
+</@compress>
+</#macro>

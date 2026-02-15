@@ -83,10 +83,12 @@ public class SomeAnnotationsGem implements Gem {
         mirror.getElementValues().forEach( (key, value) -> values.put( key.getSimpleName().toString(), value ) );
 
         // iterate and populate builder
-        for ( String methodName : defaultValues.keySet() ) {
-
+        for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
+            String methodName = defaultMethod.getKey();
+            AnnotationValue defaultValue = defaultMethod.getValue();
+            AnnotationValue value = values.get( methodName );
             if ( "value".equals( methodName ) ) {
-                builder.setValue( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), SomeAnnotationGem::instanceOn ) );
+                builder.setValue( GemValue.createArray( value, defaultValue, SomeAnnotationGem::instanceOn ) );
             }
         }
         builder.setMirror( mirror );
