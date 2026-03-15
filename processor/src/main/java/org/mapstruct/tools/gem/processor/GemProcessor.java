@@ -11,7 +11,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,11 +55,8 @@ public class GemProcessor extends AbstractProcessor {
         try {
             util = new Util( processingEnv.getTypeUtils(), processingEnv.getElementUtils() );
             for ( TypeElement annotationType : annotationTypes ) {
-                Iterator<? extends Element> i = roundEnv.getElementsAnnotatedWith( annotationType ).iterator();
 
-                while ( i.hasNext() ) {
-
-                    Element definingElement = i.next();
+                for ( Element definingElement : roundEnv.getElementsAnnotatedWith( annotationType ) ) {
 
                     // get an annotation mirror on @GemDefinitions
                     AnnotationMirror gemDefinitionsMirror = definingElement
@@ -76,7 +72,7 @@ public class GemProcessor extends AbstractProcessor {
                         "value",
                         List.class
                     );
-                    gemDefinitionMirrors.stream().forEach( m -> addGemInfo( m, definingElement ) );
+                    gemDefinitionMirrors.forEach( m -> addGemInfo( m, definingElement ) );
                 }
             }
             postProcessGemInfo();
