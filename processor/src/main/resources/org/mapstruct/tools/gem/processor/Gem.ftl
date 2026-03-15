@@ -126,7 +126,7 @@ public class ${gemInfo.gemName} implements Gem {
                     <@fillBuilder gemValueInfo, indentString/>
 
                     break;
-           </#list>
+            </#list>
             }
         </#if>
         }
