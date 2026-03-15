@@ -120,19 +120,23 @@ public class SomeArrayAnnotationGem implements Gem {
         mirror.getElementValues().forEach( (key, value) -> values.put( key.getSimpleName().toString(), value ) );
 
         // iterate and populate builder
-        for ( String methodName : defaultValues.keySet() ) {
-
-            if ( "myClassWithDefault".equals( methodName ) ) {
-                builder.setMyclasswithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), TypeMirror.class ) );
-            }
-            else if ( "myBooleanWithDefault".equals( methodName ) ) {
-                builder.setMybooleanwithdefault( GemValue.createArray( values.get( methodName ), defaultValues.get( methodName ), Boolean.class ) );
-            }
-            else if ( "myEnumWithDefault".equals( methodName ) ) {
-                builder.setMyenumwithdefault( GemValue.createEnumArray( values.get( methodName ), defaultValues.get( methodName ) ) );
-            }
-            else if ( "myAnnotation".equals( methodName ) ) {
-                builder.setMyannotation( GemValue.create( values.get( methodName ), defaultValues.get( methodName ), SomeAnnotationGem::instanceOn ) );
+        for ( Map.Entry<String, AnnotationValue> defaultMethod : defaultValues.entrySet() ) {
+            String methodName = defaultMethod.getKey();
+            AnnotationValue defaultValue = defaultMethod.getValue();
+            AnnotationValue value = values.get( methodName );
+            switch ( methodName ) {
+                case "myClassWithDefault":
+                    builder.setMyclasswithdefault( GemValue.createArray( value, defaultValue, TypeMirror.class ) );
+                    break;
+                case "myBooleanWithDefault":
+                    builder.setMybooleanwithdefault( GemValue.createArray( value, defaultValue, Boolean.class ) );
+                    break;
+                case "myEnumWithDefault":
+                    builder.setMyenumwithdefault( GemValue.createEnumArray( value, defaultValue ) );
+                    break;
+                case "myAnnotation":
+                    builder.setMyannotation( GemValue.create( value, defaultValue, SomeAnnotationGem::instanceOn ) );
+                    break;
             }
         }
         builder.setMirror( mirror );
