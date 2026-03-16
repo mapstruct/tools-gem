@@ -180,7 +180,6 @@ public class GemValue<T> {
 
         @Override
         public List<R> visitArray(List<? extends AnnotationValue> vals, Class<V> vClass) {
-            boolean valid = true;
             List<R> values = new ArrayList<>( vals.size() );
             for ( AnnotationValue val : vals ) {
                 R value = val.accept( arrayVisitor, vClass );
