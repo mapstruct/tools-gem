@@ -8,6 +8,7 @@ package org.mapstruct.tools.gem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.AnnotationValueVisitor;
@@ -111,6 +112,16 @@ public class GemValue<T> {
      */
     public T getValue() {
         return value;
+    }
+
+    /**
+     * Returns the value set by the user, if present, otherwise invoke other and return the result of that invocation.
+     *
+     * @param other a Supplier whose result is returned if no value is present
+     * @return the value  set by the user, if present, otherwise the result of {@code other.get()}
+     */
+    public T getValueOrElseGet(Supplier<T> other) {
+        return value != null ? value : other.get();
     }
 
     /**
