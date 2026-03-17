@@ -8,23 +8,30 @@
 <#-- @ftlvariable name="gemInfo" type="org.mapstruct.tools.gem.processor.GemInfo" -->
 package ${gemInfo.gemPackageName};
 
-import java.util.ArrayList;
+<#assign hasGemInfoValues = gemInfo.gemValueInfos?size &gt; 0>
+<#if hasGemInfoValues>
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+</#if>
 import javax.lang.model.element.AnnotationMirror;
+<#if hasGemInfoValues>
 import javax.lang.model.element.AnnotationValue;
+</#if>
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
+<#if hasGemInfoValues>
 import javax.lang.model.element.ExecutableElement;
+</#if>
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
+<#if hasGemInfoValues>
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.AbstractAnnotationValueVisitor8;
 import javax.lang.model.util.ElementFilter;
+</#if>
 import org.mapstruct.tools.gem.Gem;
+<#if hasGemInfoValues>
 import org.mapstruct.tools.gem.GemValue;
+</#if>
 
 <#list gemInfo.imports as importItem>
 import ${importItem};
@@ -35,7 +42,7 @@ public class ${gemInfo.gemName} implements Gem {
 <#list gemInfo.gemValueInfos as gemValueInfo>
     private final GemValue<${gemValueInfo.valueType.name}> ${gemValueInfo.name};
 </#list>
-<#if (gemInfo.gemValueInfos?size > 0) >
+<#if hasGemInfoValues>
     private final boolean isValid;
 </#if>
     private final AnnotationMirror mirror;
@@ -68,10 +75,10 @@ public class ${gemInfo.gemName} implements Gem {
 
     @Override
     public boolean isValid( ) {
-    <#if gemInfo.gemValueInfos?size == 0>
-        return true;
-    <#else>
+    <#if hasGemInfoValues>
         return isValid;
+    <#else>
+        return true;
     </#if>
     }
 
@@ -97,7 +104,7 @@ public class ${gemInfo.gemName} implements Gem {
         if ( mirror == null || builder == null ) {
             return null;
         }
-        <#if gemInfo.gemValueInfos?size != 0>
+        <#if hasGemInfoValues>
 
         // fetch defaults from all defined values in the annotation type
         List<ExecutableElement> enclosed = ElementFilter.methodsIn( mirror.getAnnotationType().asElement().getEnclosedElements() );
