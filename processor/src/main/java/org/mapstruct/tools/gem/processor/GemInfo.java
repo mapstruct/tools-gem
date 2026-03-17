@@ -63,6 +63,7 @@ public class GemInfo {
             .map( GemValueInfo::getValueType )
             .filter( this::isNotJavaLang )
             .filter( this::isNotSamePackage )
+            .filter( this::isNotTypeMirror )
             .map( GemValueType::getFqn )
             .collect( Collectors.toSet() );
     }
@@ -85,5 +86,9 @@ public class GemInfo {
 
     private boolean isNotJavaLang( GemValueType valueType ) {
         return !"java.lang".equals( valueType.getPacakage() );
+    }
+
+    private boolean isNotTypeMirror( GemValueType valueType ) {
+        return !"javax.lang.model.type.TypeMirror".equals( valueType.getFqn() );
     }
 }
