@@ -42,6 +42,7 @@ class ProcessorTest {
         );
         File generatedDir = compile( new GemProcessor(), src );
         assertGeneratedFileContent( "BuilderGem", generatedDir );
+        assertGeneratedFileContent( "CustomBuilderGem", generatedDir );
         assertGeneratedFileContent( "SomeAnnotationGem", generatedDir );
         assertGeneratedFileContent( "SomeAnnotationsGem", generatedDir );
         assertGeneratedFileContent( "SomeArrayAnnotationGem", generatedDir );
@@ -145,6 +146,7 @@ class ProcessorTest {
             "@GemDefinition(value = SomeAnnotations.class)\n" +
             "@GemDefinition(value = SomeArrayAnnotation.class)\n" +
             "@GemDefinition(value = Builder.class)\n" +
+            "@GemDefinition(value = Builder.class, implementationName = \"Custom<CLASS_NAME>Gem\")\n" +
             "public class GemGenerator {\n" +
             "}";
     }

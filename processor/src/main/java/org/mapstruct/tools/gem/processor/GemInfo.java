@@ -26,10 +26,10 @@ public class GemInfo {
     private final List<GemValueInfo> gemValueInfos;
     private final Element[] originatingElements;
 
-    public GemInfo(String gemPackageName, String annotationName, String annotationFqn,
+    public GemInfo(String gemPackageName, String gemName, String annotationName, String annotationFqn,
         List<GemValueInfo> gemValueInfos, Element... originatingElements) {
         this.gemPackageName = gemPackageName;
-        this.gemName = annotationName + "Gem";
+        this.gemName = gemName;
         this.annotationName = annotationName;
         this.annotationFqn = annotationFqn;
         this.gemValueInfos = gemValueInfos;

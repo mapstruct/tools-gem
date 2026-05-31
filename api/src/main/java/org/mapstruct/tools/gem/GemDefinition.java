@@ -25,4 +25,14 @@ public @interface GemDefinition {
      * @return the annotation for which a Gem should be generated
      */
     Class<?> value();
+
+    /**
+     * Specifies the name of the implementation class. The {@code <CLASS_NAME>} will be replaced by the
+     * interface/abstract class name.
+     * <p>
+     * Defaults to postfixing the name with {@code Gem}: {@code <CLASS_NAME>Impl}
+     *
+     * @return The implementation name.
+     */
+    String implementationName() default "<CLASS_NAME>";
 }

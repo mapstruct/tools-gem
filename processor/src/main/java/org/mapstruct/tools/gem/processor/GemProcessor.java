@@ -95,8 +95,9 @@ public class GemProcessor extends AbstractProcessor {
 
         // create gem info
         DeclaredType gemDeclaredType = util.getAnnotationValue( gemDefinitionMirror, "value", DeclaredType.class );
+        String annotationName = util.getSimpleName( gemDeclaredType );
+        String gemName = getGemName( gemDefinitionMirror, annotationName );
         PackageElement pkg = processingEnv.getElementUtils().getPackageOf( definingElement );
-        String gemName = util.getSimpleName( gemDeclaredType );
         String gemFqn = util.getFullyQualifiedName( gemDeclaredType );
         String gemPackage = pkg.getQualifiedName().toString();
 
@@ -108,12 +109,21 @@ public class GemProcessor extends AbstractProcessor {
         GemInfo gemInfo = new GemInfo(
             gemPackage,
             gemName,
+            annotationName,
             gemFqn,
             gemValueInfos,
             definingElement,
             gemDeclaredType.asElement()
         );
         gemInfos.add( gemInfo );
+    }
+
+    private String getGemName(AnnotationMirror gemDefinitionMirror, String annotationName) {
+        String implementationName = util.getAnnotationValue( gemDefinitionMirror, "implementationName", String.class );
+        if ( implementationName != null ) {
+            return implementationName.replace( "<CLASS_NAME>", annotationName );
+        }
+        return annotationName + "Gem";
     }
 
     private void postProcessGemInfo() {
