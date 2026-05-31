@@ -30,9 +30,9 @@ public @interface GemDefinition {
      * Specifies the name of the implementation class. The {@code <CLASS_NAME>} will be replaced by the
      * interface/abstract class name.
      * <p>
-     * Defaults to postfixing the name with {@code Gem}: {@code <CLASS_NAME>Impl}
+     * Defaults to postfixing the name with {@code Gem}: {@code <CLASS_NAME>Gem}
      *
      * @return The implementation name.
      */
-    String implementationName() default "<CLASS_NAME>";
+    String implementationName() default "<CLASS_NAME>Gem";
 }
