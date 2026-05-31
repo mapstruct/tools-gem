@@ -39,7 +39,7 @@ import freemarker.template.Version;
 /**
  * @author sjaakd
  */
-@SupportedAnnotationTypes( "org.mapstruct.tools.gem.GemDefinitions" )
+@SupportedAnnotationTypes( {"org.mapstruct.tools.gem.GemDefinitions", "org.mapstruct.tools.gem.GemDefinition"} )
 public class GemProcessor extends AbstractProcessor {
 
     private Util util;
@@ -55,24 +55,28 @@ public class GemProcessor extends AbstractProcessor {
         try {
             util = new Util( processingEnv.getTypeUtils(), processingEnv.getElementUtils() );
             for ( TypeElement annotationType : annotationTypes ) {
-
+                String annotationName = annotationType.getQualifiedName().toString();
                 for ( Element definingElement : roundEnv.getElementsAnnotatedWith( annotationType ) ) {
 
                     // get an annotation mirror on @GemDefinitions
                     AnnotationMirror gemDefinitionsMirror = definingElement
                         .getAnnotationMirrors()
                         .stream()
-                        .filter( t -> util.isSame( t.getAnnotationType(), "org.mapstruct.tools.gem.GemDefinitions" ) )
+                        .filter( t -> util.isSame( t.getAnnotationType(), annotationName ) )
                         .findFirst()
                         .orElseThrow( IllegalStateException::new );
-
-                    // get annotation mirrors on each @GemDefinitions#value
-                    List<AnnotationMirror> gemDefinitionMirrors = util.getAnnotationValue(
-                        gemDefinitionsMirror,
-                        "value",
-                        List.class
-                    );
-                    gemDefinitionMirrors.forEach( m -> addGemInfo( m, definingElement ) );
+                    if ( annotationName.endsWith( "s" ) ) {
+                        // get annotation mirrors on each @GemDefinitions#value
+                        List<AnnotationMirror> gemDefinitionMirrors = util.getAnnotationValue(
+                                gemDefinitionsMirror,
+                                "value",
+                                List.class
+                        );
+                        gemDefinitionMirrors.forEach( m -> addGemInfo( m, definingElement ) );
+                    }
+                    else {
+                        addGemInfo( gemDefinitionsMirror, definingElement );
+                    }
                 }
             }
             postProcessGemInfo();

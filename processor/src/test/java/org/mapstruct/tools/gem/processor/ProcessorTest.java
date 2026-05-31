@@ -40,10 +40,31 @@ class ProcessorTest {
             "org.mapstruct.annotations.processor.GemGenerator",
             getSource()
         );
-        compile( new GemProcessor(), src );
+        File generatedDir = compile( new GemProcessor(), src );
+        assertGeneratedFileContent( "BuilderGem", generatedDir );
+        assertGeneratedFileContent( "SomeAnnotationGem", generatedDir );
+        assertGeneratedFileContent( "SomeAnnotationsGem", generatedDir );
+        assertGeneratedFileContent( "SomeArrayAnnotationGem", generatedDir );
     }
 
-    private void compile(Processor processor, JavaFileObject... compilationUnits) throws IOException {
+    @Test
+    void singleAnnotation() throws IOException {
+        StringJavaFileObject src = new StringJavaFileObject(
+                "org.mapstruct.annotations.processor.GemGenerator",
+                "package org.mapstruct.tools.gem.processor;\n" +
+                        "\n" +
+                        "import org.mapstruct.tools.gem.GemDefinition;\n" +
+                        "import org.mapstruct.tools.gem.test.Builder;\n" +
+                        "\n" +
+                        "@GemDefinition(value = Builder.class)\n" +
+                        "public class GemGenerator {\n" +
+                        "}"
+        );
+        File generatedDir = compile( new GemProcessor(), src );
+        assertGeneratedFileContent( "BuilderGem", generatedDir );
+    }
+
+    private File compile(Processor processor, JavaFileObject... compilationUnits) throws IOException {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
@@ -71,12 +92,7 @@ class ProcessorTest {
             System.err.println( diagnostic );
         }
         assertThat( success ).isTrue();
-
-
-        assertGeneratedFileContent( "BuilderGem", generatedDir );
-        assertGeneratedFileContent( "SomeAnnotationGem", generatedDir );
-        assertGeneratedFileContent( "SomeAnnotationsGem", generatedDir );
-        assertGeneratedFileContent( "SomeArrayAnnotationGem", generatedDir );
+        return generatedDir;
     }
 
     protected void assertGeneratedFileContent(String gemName, File generatedDir) {
