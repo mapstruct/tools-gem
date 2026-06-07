@@ -28,6 +28,7 @@ public class SomeAnnotationGem implements Gem {
     private final GemValue<Double> myDoubleWithDefault;
     private final GemValue<String> myStringWithDefault;
     private final GemValue<String> myEnumWithDefault;
+    private final GemValue<List<String>> myEnumArrayWithDefault;
     private final GemValue<TypeMirror> myClass;
     private final GemValue<Boolean> myBoolean;
     private final GemValue<Character> myChar;
@@ -39,6 +40,7 @@ public class SomeAnnotationGem implements Gem {
     private final GemValue<Double> myDouble;
     private final GemValue<String> myString;
     private final GemValue<String> myEnum;
+    private final GemValue<List<String>> myEnumArray;
     private final boolean isValid;
     private final AnnotationMirror mirror;
 
@@ -54,6 +56,7 @@ public class SomeAnnotationGem implements Gem {
         this.myDoubleWithDefault = builder.myDoubleWithDefault;
         this.myStringWithDefault = builder.myStringWithDefault;
         this.myEnumWithDefault = builder.myEnumWithDefault;
+        this.myEnumArrayWithDefault = builder.myEnumArrayWithDefault;
         this.myClass = builder.myClass;
         this.myBoolean = builder.myBoolean;
         this.myChar = builder.myChar;
@@ -65,6 +68,7 @@ public class SomeAnnotationGem implements Gem {
         this.myDouble = builder.myDouble;
         this.myString = builder.myString;
         this.myEnum = builder.myEnum;
+        this.myEnumArray = builder.myEnumArray;
         isValid = ( this.myClassWithDefault != null && this.myClassWithDefault.isValid() )
                && ( this.myBooleanWithDefault != null && this.myBooleanWithDefault.isValid() )
                && ( this.myCharWithDefault != null && this.myCharWithDefault.isValid() )
@@ -76,6 +80,7 @@ public class SomeAnnotationGem implements Gem {
                && ( this.myDoubleWithDefault != null && this.myDoubleWithDefault.isValid() )
                && ( this.myStringWithDefault != null && this.myStringWithDefault.isValid() )
                && ( this.myEnumWithDefault != null && this.myEnumWithDefault.isValid() )
+               && ( this.myEnumArrayWithDefault != null && this.myEnumArrayWithDefault.isValid() )
                && ( this.myClass != null && this.myClass.isValid() )
                && ( this.myBoolean != null && this.myBoolean.isValid() )
                && ( this.myChar != null && this.myChar.isValid() )
@@ -86,7 +91,8 @@ public class SomeAnnotationGem implements Gem {
                && ( this.myFloat != null && this.myFloat.isValid() )
                && ( this.myDouble != null && this.myDouble.isValid() )
                && ( this.myString != null && this.myString.isValid() )
-               && ( this.myEnum != null && this.myEnum.isValid() );
+               && ( this.myEnum != null && this.myEnum.isValid() )
+               && ( this.myEnumArray != null && this.myEnumArray.isValid() );
         mirror = builder.mirror;
     }
 
@@ -192,6 +198,15 @@ public class SomeAnnotationGem implements Gem {
     /**
     * accessor
     *
+    * @return the {@link GemValue} for {@link SomeAnnotationGem#myEnumArrayWithDefault}
+    */
+    public GemValue<List<String>> myEnumArrayWithDefault( ) {
+        return myEnumArrayWithDefault;
+    }
+
+    /**
+    * accessor
+    *
     * @return the {@link GemValue} for {@link SomeAnnotationGem#myClass}
     */
     public GemValue<TypeMirror> myClass( ) {
@@ -288,6 +303,15 @@ public class SomeAnnotationGem implements Gem {
         return myEnum;
     }
 
+    /**
+    * accessor
+    *
+    * @return the {@link GemValue} for {@link SomeAnnotationGem#myEnumArray}
+    */
+    public GemValue<List<String>> myEnumArray( ) {
+        return myEnumArray;
+    }
+
     @Override
     public AnnotationMirror mirror( ) {
         return mirror;
@@ -369,6 +393,9 @@ public class SomeAnnotationGem implements Gem {
                 case "myEnumWithDefault":
                     builder.setMyenumwithdefault( GemValue.createEnum( value, defaultValue ) );
                     break;
+                case "myEnumArrayWithDefault":
+                    builder.setMyenumarraywithdefault( GemValue.createEnumArray( value, defaultValue ) );
+                    break;
                 case "myClass":
                     builder.setMyclass( GemValue.create( value, defaultValue, TypeMirror.class ) );
                     break;
@@ -401,6 +428,9 @@ public class SomeAnnotationGem implements Gem {
                     break;
                 case "myEnum":
                     builder.setMyenum( GemValue.createEnum( value, defaultValue ) );
+                    break;
+                case "myEnumArray":
+                    builder.setMyenumarray( GemValue.createEnumArray( value, defaultValue ) );
                     break;
             }
         }
@@ -492,6 +522,13 @@ public class SomeAnnotationGem implements Gem {
         Builder<T> setMyenumwithdefault(GemValue<String> methodName );
 
        /**
+        * Sets the {@link GemValue} for {@link SomeAnnotationGem#myEnumArrayWithDefault}
+        *
+        * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
+        */
+        Builder<T> setMyenumarraywithdefault(GemValue<List<String>> methodName );
+
+       /**
         * Sets the {@link GemValue} for {@link SomeAnnotationGem#myClass}
         *
         * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
@@ -568,6 +605,13 @@ public class SomeAnnotationGem implements Gem {
         */
         Builder<T> setMyenum(GemValue<String> methodName );
 
+       /**
+        * Sets the {@link GemValue} for {@link SomeAnnotationGem#myEnumArray}
+        *
+        * @return the {@link Builder} for this gem, representing {@link SomeAnnotationGem}
+        */
+        Builder<T> setMyenumarray(GemValue<List<String>> methodName );
+
         /**
          * Sets the annotation mirror
          *
@@ -599,6 +643,7 @@ public class SomeAnnotationGem implements Gem {
         private GemValue<Double> myDoubleWithDefault;
         private GemValue<String> myStringWithDefault;
         private GemValue<String> myEnumWithDefault;
+        private GemValue<List<String>> myEnumArrayWithDefault;
         private GemValue<TypeMirror> myClass;
         private GemValue<Boolean> myBoolean;
         private GemValue<Character> myChar;
@@ -610,6 +655,7 @@ public class SomeAnnotationGem implements Gem {
         private GemValue<Double> myDouble;
         private GemValue<String> myString;
         private GemValue<String> myEnum;
+        private GemValue<List<String>> myEnumArray;
         private AnnotationMirror mirror;
 
         public Builder<SomeAnnotationGem> setMyclasswithdefault(GemValue<TypeMirror> myClassWithDefault ) {
@@ -667,6 +713,11 @@ public class SomeAnnotationGem implements Gem {
             return this;
         }
 
+        public Builder<SomeAnnotationGem> setMyenumarraywithdefault(GemValue<List<String>> myEnumArrayWithDefault ) {
+            this.myEnumArrayWithDefault = myEnumArrayWithDefault;
+            return this;
+        }
+
         public Builder<SomeAnnotationGem> setMyclass(GemValue<TypeMirror> myClass ) {
             this.myClass = myClass;
             return this;
@@ -719,6 +770,11 @@ public class SomeAnnotationGem implements Gem {
 
         public Builder<SomeAnnotationGem> setMyenum(GemValue<String> myEnum ) {
             this.myEnum = myEnum;
+            return this;
+        }
+
+        public Builder<SomeAnnotationGem> setMyenumarray(GemValue<List<String>> myEnumArray ) {
+            this.myEnumArray = myEnumArray;
             return this;
         }
 

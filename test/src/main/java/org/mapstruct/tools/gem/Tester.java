@@ -18,7 +18,8 @@ import org.mapstruct.tools.gem.test.SomeAnnotation;
     myFloat = 99.3f,
     myDouble = 5033.19d,
     myString = "some",
-    myEnum = SomeAnnotation.TEST.B
+    myEnum = SomeAnnotation.TEST.B,
+    myEnumArray = {SomeAnnotation.TEST.B}
 )
 public class Tester {
 }
