@@ -81,11 +81,11 @@ public class GemInfo {
     }
 
     private boolean isNotSamePackage(GemValueType valueType ) {
-        return !valueType.getPacakage().equals( gemPackageName );
+        return !valueType.getPackageName().equals( gemPackageName );
     }
 
     private boolean isNotJavaLang( GemValueType valueType ) {
-        return !"java.lang".equals( valueType.getPacakage() );
+        return !"java.lang".equals( valueType.getPackageName() );
     }
 
     private boolean isNotTypeMirror( GemValueType valueType ) {

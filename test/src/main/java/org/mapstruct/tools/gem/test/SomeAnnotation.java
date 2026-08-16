@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE )
 public @interface SomeAnnotation {
 
-    enum TEST { A, B };
+    enum TEST { A, B }
 
     Class<?> myClassWithDefault() default SomeAnnotation.class;
 
@@ -43,6 +43,8 @@ public @interface SomeAnnotation {
 
     TEST myEnumWithDefault() default TEST.A;
 
+    TEST[] myEnumArrayWithDefault() default {TEST.A, TEST.B};
+
     Class<?> myClass();
 
     boolean myBoolean();
@@ -64,5 +66,7 @@ public @interface SomeAnnotation {
     String myString();
 
     TEST myEnum();
+
+    TEST[] myEnumArray();
 
 }

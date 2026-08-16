@@ -48,12 +48,33 @@ public class GemValue<T> {
         return new GemValue<>( value, defaultValue, annotationValue );
     }
 
+    public static <E extends Enum<E>> GemValue<E> createEnum(AnnotationValue annotationValue,
+                                                             AnnotationValue annotationDefaultValue,
+                                                             Class<E> enumClass) {
+        ValueAnnotationValueVisitor<VariableElement, E> visitor = new ValueAnnotationValueVisitor<>(
+                variableElement -> Enum.valueOf( enumClass, variableElement.getSimpleName().toString() ) );
+        E value = visit( annotationValue, visitor, VariableElement.class );
+        E defaultValue = visit( annotationDefaultValue, visitor, VariableElement.class );
+        return new GemValue<>( value, defaultValue, annotationValue );
+    }
+
     public static GemValue<List<String>> createEnumArray(AnnotationValue annotationValue,
         AnnotationValue annotationDefaultValue) {
         ValueAnnotationValueListVisitor<VariableElement, String> visitor = new ValueAnnotationValueListVisitor<>(
             variableElement -> variableElement.getSimpleName().toString() );
         List<String> value = visitList( annotationValue, visitor, VariableElement.class );
         List<String> defaultValue = visitList( annotationDefaultValue, visitor, VariableElement.class );
+
+        return new GemValue<>( value, defaultValue, annotationValue );
+    }
+
+    public static <E extends Enum<E>> GemValue<List<E>> createEnumArray(AnnotationValue annotationValue,
+                                                         AnnotationValue annotationDefaultValue,
+                                                         Class<E> enumClass) {
+        ValueAnnotationValueListVisitor<VariableElement, E> visitor = new ValueAnnotationValueListVisitor<>(
+                variableElement -> Enum.valueOf( enumClass, variableElement.getSimpleName().toString() ) );
+        List<E> value = visitList( annotationValue, visitor, VariableElement.class );
+        List<E> defaultValue = visitList( annotationDefaultValue, visitor, VariableElement.class );
 
         return new GemValue<>( value, defaultValue, annotationValue );
     }

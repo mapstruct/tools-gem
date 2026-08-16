@@ -9,7 +9,7 @@ public class GemValueType {
 
     private final String name;
     private final String fqn;
-    private final String pacakage;
+    private final String packageName;
     private final boolean isEnum;
     private final boolean isArray;
     private final boolean isGem;
@@ -17,12 +17,23 @@ public class GemValueType {
     private String gemName;
     private String elementName;
 
+    public GemValueType(GemEnum gemEnum, boolean isArray) {
+        this.elementName = gemEnum.getGemName();
+        this.name = isArray ? "List<" + elementName + ">" : elementName;
+        this.fqn = gemEnum.getGemPackageName() + "." + gemEnum.getGemName();
+        this.gemName = gemEnum.getGemName();
+        this.packageName = gemEnum.getGemPackageName();
+        this.isEnum = true;
+        this.isArray = isArray;
+        this.isGem = false;
+    }
+
     public GemValueType(GemInfo gemInfo, boolean isArray) {
         this.elementName = gemInfo.getGemName();
         this.name = isArray ? "List<" + elementName + ">" : elementName;
         this.fqn = gemInfo.getGemPackageName() + "." + gemInfo.getGemName();
         this.gemName = gemInfo.getGemName();
-        this.pacakage = gemInfo.getGemPackageName();
+        this.packageName = gemInfo.getGemPackageName();
         this.isEnum = false;
         this.isArray = isArray;
         this.isGem = true;
@@ -32,7 +43,7 @@ public class GemValueType {
         this.elementName = clazz.getSimpleName();
         this.name = isArray ? "List<" + clazz.getSimpleName() + ">" : clazz.getSimpleName();
         this.fqn = clazz.getName();
-        this.pacakage = clazz.getPackage().getName();
+        this.packageName = clazz.getPackage().getName();
         this.isEnum = isEnum;
         this.isArray = isArray;
         this.isGem = false;
@@ -42,8 +53,8 @@ public class GemValueType {
         return fqn;
     }
 
-    public String getPacakage() {
-        return pacakage;
+    public String getPackageName() {
+        return packageName;
     }
 
     public String getName() {

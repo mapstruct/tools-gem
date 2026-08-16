@@ -213,9 +213,17 @@ public class ${gemInfo.gemName} implements Gem {
         </#if>
     <#elseif gemValueInfo.valueType.enum>
         <#if gemValueInfo.valueType.array>
+            <#if gemValueInfo.valueType.elementName == "String">
                     GemValue.createEnumArray( value, defaultValue )
+            <#else>
+                    GemValue.createEnumArray( value, defaultValue, ${gemValueInfo.valueType.elementName}.class  )
+            </#if>
         <#else>
+            <#if gemValueInfo.valueType.elementName == "String">
                     GemValue.createEnum( value, defaultValue )
+            <#else>
+                    GemValue.createEnum( value, defaultValue, ${gemValueInfo.valueType.elementName}.class  )
+            </#if>
         </#if>
     <#else>
         <#if gemValueInfo.valueType.array>
